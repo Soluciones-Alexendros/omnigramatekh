@@ -1,0 +1,17 @@
+# Local agent and editor state
+.cursor/
+.claude/
+.DS_Store
+
+# Node (Husky / lint-staged)
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Scratch
+*.tmp
+*.swp

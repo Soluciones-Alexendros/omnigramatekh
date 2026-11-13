@@ -1,0 +1,9 @@
+{
+  "name": "omnigramatekh",
+  "private": true,
+  "description": "Vista previa local experimental y planos Archify de OmniGramatekh",
+  "scripts": {
+    "test": "python3 sitio/pruebas/run_checks.py",
+    "prepare": "husky"
+  }
+}
