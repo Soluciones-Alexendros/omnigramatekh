@@ -1,0 +1,95 @@
+{
+  "run_id": "sitio-local-20261113T084324Z",
+  "phase": "VALIDATE",
+  "target": "sitio/",
+  "generated_at": "2026-11-13T08:43:24.074009+00:00",
+  "artifact_sha256": {
+    "index.html": "db95a6903b93b66e59e8c5fab3a40e86f0086f9c6b7b7adc0ead630d978ac831",
+    "tokens.css": "c6a958fc270516d8d21cea8da085631a265d7d31d239aa6a900ac19d6cfdee5c",
+    "sitio.css": "6da528134960457aebe1fe7687eb59e7e80792dcfe46207f34dfbf0a3dcaaabe",
+    "menu.js": "43049389924b063028a29aeef19cd0a30885c24af85bc26c27f0b751e2653467",
+    "lista-permitida.md": "5322db81b8eb853cb894118f6e6eae757c18d649daca44a07115f2be0644d39c"
+  },
+  "results": [
+    {
+      "id": "T01",
+      "status": "pass",
+      "requirements": [
+        "REQ-01",
+        "REQ-02",
+        "REQ-03",
+        "REQ-05",
+        "REQ-06"
+      ],
+      "detail": "Textos de lista permitida presentes; CASTIGO omitido; sin indicios de material privado en HTML."
+    },
+    {
+      "id": "T02",
+      "status": "pass",
+      "requirements": [
+        "REQ-04",
+        "REQ-11"
+      ],
+      "detail": "Anclas del menú existen; documentación sin enlaces; sin URLs http(s) externas. Viewports 320–1440: ensayo manual en navegador."
+    },
+    {
+      "id": "T03",
+      "status": "pass",
+      "requirements": [
+        "REQ-07",
+        "REQ-11"
+      ],
+      "detail": "Estructura semántica y menú con Escape presentes. Zoom 200%, reflow 400% y lector de pantalla: completar ensayo manual en evidencia de navegador."
+    },
+    {
+      "id": "T04",
+      "status": "not_run",
+      "requirements": [
+        "REQ-07"
+      ],
+      "detail": "Sin analizador automático instalado en este entorno de prueba (axe/pa11y/lighthouse no invocados)."
+    },
+    {
+      "id": "T05",
+      "status": "pass",
+      "requirements": [
+        "REQ-08",
+        "REQ-09"
+      ],
+      "detail": "Sin recursos remotos ni APIs de almacenamiento/cookies en el artefacto."
+    },
+    {
+      "id": "T06",
+      "status": "pass",
+      "requirements": [
+        "REQ-05",
+        "REQ-10"
+      ],
+      "detail": "Sin secretos obvios ni scripts externos. HTTPS/CSP de producción: not_applicable en vista previa local."
+    },
+    {
+      "id": "T07",
+      "status": "sin_datos",
+      "requirements": [
+        "REQ-12"
+      ],
+      "detail": "REQ-12 P1: sin medición de campo ni ensayo de laboratorio solicitado en esta fase."
+    },
+    {
+      "id": "T08",
+      "status": "pass",
+      "requirements": [
+        "REQ-13"
+      ],
+      "detail": "Rollback local OK. sha256_antes=db95a6903b93b66e59e8c5fab3a40e86f0086f9c6b7b7adc0ead630d978ac831"
+    },
+    {
+      "id": "T09",
+      "status": "pass",
+      "requirements": [
+        "REQ-14"
+      ],
+      "detail": "ADR, lista permitida, tokens (incl. separación de foco) y componentes mínimos presentes."
+    }
+  ]
+}

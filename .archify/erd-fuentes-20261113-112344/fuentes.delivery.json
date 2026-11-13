@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "9def1187-a3b6-48cf-9ba2-9303fafe13e0",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/erd-fuentes-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/erd-fuentes-20261113-112344/fuentes.html",
+  "specification": {
+    "sha256": "fabe26b43080d171e0141de85517ed8f71397eaddbf5008c3b0f676918ad292e",
+    "bytes": 3513
+  },
+  "artifact": {
+    "sha256": "6847d5bd14e96fd997671213eff583be493488587ba8176d8ef07af91a4a8c54",
+    "bytes": 852795
+  }
+}

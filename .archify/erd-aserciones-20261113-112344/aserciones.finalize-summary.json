@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "erd",
+  "quality": "standard",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-aserciones-20261113-112344/candidate.json",
+    "sha256": "01cc2697e8d6a7a2dcdcaa610224603dcdf40dc5a8baf9afdcda9484da5cdbcb",
+    "bytes": 8634
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-aserciones-20261113-112344/aserciones.html",
+    "sha256": "adacbe9cfd91efb99b1def524b0791953af7c629c870d23c2437706b05847152",
+    "bytes": 877171
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-aserciones-20261113-112344/aserciones.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-aserciones-20261113-112344/aserciones.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-aserciones-20261113-112344/aserciones.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2170,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

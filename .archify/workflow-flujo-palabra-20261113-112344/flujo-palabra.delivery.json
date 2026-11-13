@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "6d160d7f-ec68-433b-aa52-943f02b0b62c",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/workflow-flujo-palabra-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/workflow-flujo-palabra-20261113-112344/flujo-palabra.html",
+  "specification": {
+    "sha256": "2ff1a7a9bbae07d35c1f5498286211cae8b8b039fe9e70880e7aac840f9c2c3d",
+    "bytes": 6381
+  },
+  "artifact": {
+    "sha256": "246da255e829cab2ce52231567e29eda1853ca9b50c7c90d192c32a0a5fe4055",
+    "bytes": 858277
+  }
+}

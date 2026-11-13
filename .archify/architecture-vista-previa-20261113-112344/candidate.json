@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Vista previa local de OmniGramatekh",
+    "locale": "es",
+    "output": ".archify/architecture-vista-previa-20261113-112344/vista-previa.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "visitante",
+      "type": "external",
+      "label": "Visitante",
+      "sublabel": "navegador local",
+      "pos": [40, 216],
+      "size": [148, 64]
+    },
+    {
+      "id": "portada",
+      "type": "frontend",
+      "label": "index.html",
+      "sublabel": "portada estática",
+      "tag": "sin backend",
+      "pos": [395, 210],
+      "size": [190, 76]
+    },
+    {
+      "id": "tokens",
+      "type": "frontend",
+      "label": "tokens.css",
+      "sublabel": "tokens v0",
+      "pos": [320, 40],
+      "size": [160, 60]
+    },
+    {
+      "id": "estilos",
+      "type": "frontend",
+      "label": "sitio.css",
+      "sublabel": "componentes",
+      "pos": [500, 40],
+      "size": [160, 60]
+    },
+    {
+      "id": "menu",
+      "type": "frontend",
+      "label": "menu.js",
+      "sublabel": "menú móvil",
+      "pos": [410, 406],
+      "size": [160, 60]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "sitio/ · HTML estático aislado",
+      "wraps": ["portada", "tokens", "estilos", "menu"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "abre-portada",
+      "from": "visitante",
+      "to": "portada",
+      "label": "abre",
+      "variant": "emphasis"
+    },
+    {
+      "id": "portada-tokens",
+      "from": "portada",
+      "to": "tokens",
+      "label": "enlace CSS",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "portada-estilos",
+      "from": "portada",
+      "to": "estilos",
+      "label": "enlace CSS",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "portada-menu",
+      "from": "portada",
+      "to": "menu",
+      "label": "script defer",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Secciones de la portada",
+      "items": [
+        "Presentación, Proyecto, Método, Documentación y Estado viven en la misma página con anclas.",
+        "Las tarjetas documentales figuran «En preparación», sin destino público.",
+        "CASTIGO, contacto y textos legales quedan fuera de la lista permitida."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Aislamiento",
+      "items": [
+        "ADR 0001 deja sitio/ fuera del modelo léxico y de Notion.",
+        "La página no consulta la lista permitida al abrirse: el contenido ya está en el HTML.",
+        "Sin backend, API, CMS, analítica ni scripts de terceros."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Plan futuro, no conectado",
+      "items": [
+        "Notion describe capas, flujo por palabra y entidades LinkML.",
+        "Esos planos se leen aparte: no hay flecha desde la portada hacia el modelo.",
+        "Este directorio no es un repositorio Git; no hay revisión que fijar."
+      ]
+    }
+  ]
+}

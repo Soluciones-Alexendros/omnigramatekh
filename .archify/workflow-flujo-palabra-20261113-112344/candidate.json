@@ -1,0 +1,299 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Flujo de datos por palabra · plan documental",
+    "locale": "es",
+    "output": ".archify/workflow-flujo-palabra-20261113-112344/flujo-palabra.html",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "entrada",
+      "label": "Entrada"
+    },
+    {
+      "id": "adquisicion",
+      "label": "Adquisición"
+    },
+    {
+      "id": "nucleo",
+      "label": "Núcleo"
+    },
+    {
+      "id": "verificacion",
+      "label": "Verificación"
+    },
+    {
+      "id": "retorno",
+      "label": "Retorno",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "planificar",
+      "label": "Planificar",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "capturar",
+      "label": "Capturar y normalizar",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "aprobar",
+      "label": "Aprobar y proyectar",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "conjunto",
+    "cola",
+    "adaptadores",
+    "candidatos",
+    "resolucion",
+    "almacen",
+    "revision",
+    "proyecciones"
+  ],
+  "nodes": [
+    {
+      "id": "conjunto",
+      "lane": "entrada",
+      "col": 0,
+      "type": "external",
+      "label": "Entradas objetivo",
+      "sublabel": "conjunto de palabras"
+    },
+    {
+      "id": "cola",
+      "lane": "entrada",
+      "col": 1,
+      "type": "messagebus",
+      "label": "Cola de tareas",
+      "sublabel": "entrada × recurso"
+    },
+    {
+      "id": "adaptadores",
+      "lane": "adquisicion",
+      "col": 2,
+      "type": "backend",
+      "label": "Adaptadores",
+      "sublabel": "API wiki documento",
+      "tag": "cinco vías"
+    },
+    {
+      "id": "candidatos",
+      "lane": "adquisicion",
+      "col": 3,
+      "type": "backend",
+      "label": "Candidatos",
+      "sublabel": "valor + cita + localizador"
+    },
+    {
+      "id": "resolucion",
+      "lane": "nucleo",
+      "col": 4,
+      "type": "backend",
+      "label": "Resolución",
+      "sublabel": "orden y fusión"
+    },
+    {
+      "id": "almacen",
+      "lane": "nucleo",
+      "col": 5,
+      "type": "database",
+      "label": "Almacén canónico",
+      "sublabel": "esquema + índice"
+    },
+    {
+      "id": "gates",
+      "lane": "verificacion",
+      "col": 4,
+      "type": "security",
+      "label": "Gates",
+      "sublabel": "V01–V15"
+    },
+    {
+      "id": "revision",
+      "lane": "verificacion",
+      "col": 5,
+      "type": "security",
+      "label": "Revisión",
+      "sublabel": "aprobación",
+      "tag": "gate"
+    },
+    {
+      "id": "rechazo",
+      "lane": "verificacion",
+      "col": 2,
+      "type": "security",
+      "label": "Rechazada",
+      "sublabel": "vuelve a la cola"
+    },
+    {
+      "id": "proyecciones",
+      "lane": "retorno",
+      "col": 5,
+      "type": "frontend",
+      "label": "Proyecciones",
+      "sublabel": "vista SQL JSON-LD"
+    },
+    {
+      "id": "conflicto",
+      "lane": "retorno",
+      "col": 3,
+      "type": "messagebus",
+      "label": "Conflicto",
+      "sublabel": "canon vs edición"
+    },
+    {
+      "id": "resolver",
+      "lane": "retorno",
+      "col": 1,
+      "type": "backend",
+      "label": "Resolución de conflictos",
+      "sublabel": "traza de decisión"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-cola",
+      "from": "conjunto",
+      "to": "cola",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cola-adap",
+      "from": "cola",
+      "to": "adaptadores",
+      "label": "despacha"
+    },
+    {
+      "id": "adap-cand",
+      "from": "adaptadores",
+      "to": "candidatos",
+      "label": "produce"
+    },
+    {
+      "id": "cand-res",
+      "from": "candidatos",
+      "to": "resolucion",
+      "label": "normaliza"
+    },
+    {
+      "id": "res-alm",
+      "from": "resolucion",
+      "to": "almacen",
+      "label": "escribe",
+      "variant": "emphasis"
+    },
+    {
+      "id": "alm-gates",
+      "from": "almacen",
+      "to": "gates",
+      "label": "valida",
+      "variant": "security",
+      "role": "branch"
+    },
+    {
+      "id": "gates-rev",
+      "from": "gates",
+      "to": "revision",
+      "label": "informa"
+    },
+    {
+      "id": "alm-rev",
+      "from": "almacen",
+      "to": "revision",
+      "label": "pasa a revisión",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rev-proy",
+      "from": "revision",
+      "to": "proyecciones",
+      "label": "aprobada",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rev-rech",
+      "from": "revision",
+      "to": "rechazo",
+      "label": "rechazada",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "rech-cola",
+      "from": "rechazo",
+      "to": "cola",
+      "label": "reencola",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "proy-conf",
+      "from": "proyecciones",
+      "to": "conflicto",
+      "label": "si hay conflicto",
+      "variant": "dashed"
+    },
+    {
+      "id": "conf-res",
+      "from": "conflicto",
+      "to": "resolver",
+      "label": "abre resolución",
+      "variant": "security"
+    },
+    {
+      "id": "sol-alm",
+      "from": "resolver",
+      "to": "almacen",
+      "label": "aplica",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "proy-alm",
+      "from": "proyecciones",
+      "to": "almacen",
+      "label": "sin conflicto",
+      "variant": "dashed",
+      "role": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Camino principal",
+      "items": [
+        "Cola, adaptadores, candidatos, resolución, almacén, revisión y proyecciones.",
+        "Los gates se muestran como rama de verificación; el camino principal entra en revisión.",
+        "Diseño de Notion: no es un ciclo operativo en este directorio."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Puertas y retorno",
+      "items": [
+        "Rechazo vuelve a la cola; si hay conflicto se abre resolución con traza.",
+        "Sin conflicto, el cambio editable vuelve al almacén. V22 y V24 siguen bloqueados."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Estado",
+      "items": [
+        "Modelo y controles experimentales; sin canon aprobado.",
+        "Sin canal desde la portada estática hacia este flujo."
+      ]
+    }
+  ]
+}

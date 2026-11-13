@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/candidate.json",
+    "sha256": "e119f41e6fbff59a3edaa39b5f55719d66fbe5ebf17c1e22793e25b17c573c88",
+    "bytes": 4799
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/capas.html",
+    "sha256": "1f2471b6e3cefc95f7f2d5d33d63b3243e5f1cda9109b41af4e8caa71431fa20",
+    "bytes": 851896
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/capas.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/capas.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/capas.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2249,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  },
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 1,
+      "routesOverSuggestedBends": 2
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "id": "v-g",
+            "from": "verificacion",
+            "to": "gobernanza",
+            "label": "revisión",
+            "collectionIndex": 5,
+            "artifactIndex": 6
+          },
+          "right": {
+            "id": "r-nuc",
+            "from": "retorno",
+            "to": "nucleo",
+            "label": "resuelve",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "point": [
+            905,
+            312
+          ]
+        }
+      ],
+      "detours": [
+        {
+          "relationship": {
+            "id": "g-p",
+            "from": "gobernanza",
+            "to": "proyecciones",
+            "label": "si aprobada",
+            "collectionIndex": 6,
+            "artifactIndex": 7
+          },
+          "bends": 3,
+          "stretch": 1
+        },
+        {
+          "relationship": {
+            "id": "r-nuc",
+            "from": "retorno",
+            "to": "nucleo",
+            "label": "resuelve",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "bends": 3,
+          "stretch": 1
+        }
+      ],
+      "truncated": false
+    },
+    "hints": [
+      "verificacion → gobernanza crosses retorno → nucleo: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "gobernanza → proyecciones needs 3 bends: move node gobernanza or proyecciones so they share a row or column with matching centers, or sit diagonally with a clear corner.",
+      "retorno → nucleo needs 3 bends: move node retorno or nucleo so they share a row or column with matching centers, or sit diagonally with a clear corner."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  }
+}

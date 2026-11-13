@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Macroesquema por capas · plan documental",
+    "locale": "es",
+    "output": ".archify/architecture-capas-20261113-112344/capas.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "entrada",
+      "type": "external",
+      "label": "Entrada",
+      "sublabel": "capa 0",
+      "tag": "fichas manuales",
+      "pos": [40, 220],
+      "size": [140, 68]
+    },
+    {
+      "id": "adquisicion",
+      "type": "backend",
+      "label": "Adquisición",
+      "sublabel": "capa 1 · adaptadores",
+      "tag": "API wiki scrape",
+      "pos": [230, 220],
+      "size": [150, 68]
+    },
+    {
+      "id": "capturas",
+      "type": "database",
+      "label": "Registro de capturas",
+      "sublabel": "reproducible",
+      "pos": [230, 60],
+      "size": [150, 60]
+    },
+    {
+      "id": "normalizacion",
+      "type": "backend",
+      "label": "Normalización",
+      "sublabel": "capa 2",
+      "tag": "identidad fusión",
+      "pos": [430, 220],
+      "size": [150, 68]
+    },
+    {
+      "id": "nucleo",
+      "type": "database",
+      "label": "Núcleo canónico",
+      "sublabel": "capa 3 · esquema",
+      "tag": "índice",
+      "pos": [630, 220],
+      "size": [150, 68]
+    },
+    {
+      "id": "verificacion",
+      "type": "security",
+      "label": "Verificación",
+      "sublabel": "capa 4 · gates",
+      "tag": "lint integridad",
+      "pos": [830, 220],
+      "size": [150, 68]
+    },
+    {
+      "id": "proyecciones",
+      "type": "frontend",
+      "label": "Proyecciones",
+      "sublabel": "capa 5",
+      "tag": "vista SQL JSON-LD",
+      "pos": [1030, 220],
+      "size": [160, 68]
+    },
+    {
+      "id": "gobernanza",
+      "type": "security",
+      "label": "Gobernanza",
+      "sublabel": "capa 6",
+      "tag": "aprobación",
+      "pos": [830, 400],
+      "size": [150, 68]
+    },
+    {
+      "id": "retorno",
+      "type": "messagebus",
+      "label": "Retorno editable",
+      "sublabel": "conflictos",
+      "pos": [1030, 400],
+      "size": [160, 68]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Plan documental · no construido en este directorio",
+      "wraps": [
+        "adquisicion",
+        "capturas",
+        "normalizacion",
+        "nucleo",
+        "verificacion",
+        "proyecciones",
+        "gobernanza",
+        "retorno"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "e-a",
+      "from": "entrada",
+      "to": "adquisicion",
+      "label": "entradas objetivo",
+      "variant": "emphasis"
+    },
+    {
+      "id": "a-cap",
+      "from": "adquisicion",
+      "to": "capturas",
+      "label": "registra",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "a-n",
+      "from": "adquisicion",
+      "to": "normalizacion",
+      "label": "candidatos"
+    },
+    {
+      "id": "n-nuc",
+      "from": "normalizacion",
+      "to": "nucleo",
+      "label": "escribe"
+    },
+    {
+      "id": "nuc-v",
+      "from": "nucleo",
+      "to": "verificacion",
+      "label": "gates"
+    },
+    {
+      "id": "v-g",
+      "from": "verificacion",
+      "to": "gobernanza",
+      "label": "revisión",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "g-p",
+      "from": "gobernanza",
+      "to": "proyecciones",
+      "label": "si aprobada",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "bottom"
+    },
+    {
+      "id": "p-r",
+      "from": "proyecciones",
+      "to": "retorno",
+      "label": "cambios",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "r-nuc",
+      "from": "retorno",
+      "to": "nucleo",
+      "label": "resuelve",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "bottom"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Qué dibuja",
+      "items": [
+        "Capas 0–6 del macroesquema de OmniGramatekh · LinkML.",
+        "Adquisición: adaptadores por tipo de acceso y registro de capturas.",
+        "Proyecciones: vista editable, consulta SQL y publicación JSON-LD."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Límites",
+      "items": [
+        "Diseño documental: no hay estas piezas en el directorio de trabajo.",
+        "Sin hosting, API pública ni enlace con la portada estática.",
+        "El borrador macro no es un canon aprobado."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Verificación",
+      "items": [
+        "Gates: metamodelo, lint, instancia, integridad y procedencia.",
+        "V22 y V24 siguen bloqueados en el registro de Notion.",
+        "La aprobación actúa como puerta antes de proyectar."
+      ]
+    }
+  ]
+}

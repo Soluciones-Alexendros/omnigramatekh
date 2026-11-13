@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "diagram_type": "tree",
+  "meta": {
+    "title": "Estructura de componentes de OmniGramatekh",
+    "locale": "es",
+    "output": ".archify/tree-componentes-20261113-112344/estructura-componentes.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "direction": "right"
+  },
+  "nodes": [
+    {
+      "id": "raiz",
+      "label": "OmniGramatekh",
+      "sublabel": "directorio de trabajo"
+    },
+    {
+      "id": "sitio",
+      "parent": "raiz",
+      "label": "sitio/",
+      "sublabel": "vista previa en el directorio"
+    },
+    {
+      "id": "portada",
+      "parent": "sitio",
+      "label": "index.html",
+      "sublabel": "una sola portada"
+    },
+    {
+      "id": "cabecera",
+      "parent": "portada",
+      "label": "Cabecera",
+      "sublabel": "salto, identidad y menú"
+    },
+    {
+      "id": "presentacion",
+      "parent": "portada",
+      "label": "Presentación",
+      "sublabel": "titular y estado"
+    },
+    {
+      "id": "proyecto",
+      "parent": "portada",
+      "label": "Proyecto",
+      "sublabel": "alcance y límites"
+    },
+    {
+      "id": "metodo",
+      "parent": "portada",
+      "label": "Método",
+      "sublabel": "cinco etapas"
+    },
+    {
+      "id": "docs",
+      "parent": "portada",
+      "label": "Documentación",
+      "sublabel": "cuatro tarjetas en preparación"
+    },
+    {
+      "id": "estado",
+      "parent": "portada",
+      "label": "Estado",
+      "sublabel": "fase experimental"
+    },
+    {
+      "id": "pie",
+      "parent": "portada",
+      "label": "Pie",
+      "sublabel": "sin contacto ni legales"
+    },
+    {
+      "id": "tokens",
+      "parent": "sitio",
+      "label": "tokens.css",
+      "sublabel": "propuesta v0"
+    },
+    {
+      "id": "estilos",
+      "parent": "sitio",
+      "label": "sitio.css",
+      "sublabel": "cabecera, tarjetas y pie"
+    },
+    {
+      "id": "menu",
+      "parent": "sitio",
+      "label": "menu.js",
+      "sublabel": "menú en viewport estrecho"
+    },
+    {
+      "id": "lista",
+      "parent": "sitio",
+      "label": "Lista permitida",
+      "sublabel": "gobierno editorial"
+    },
+    {
+      "id": "pruebas",
+      "parent": "sitio",
+      "label": "run_checks.py",
+      "sublabel": "T01–T09 locales"
+    },
+    {
+      "id": "adr",
+      "parent": "raiz",
+      "label": "ADR 0001",
+      "sublabel": "sitio aislado del modelo"
+    },
+    {
+      "id": "capas",
+      "parent": "raiz",
+      "label": "Siete capas",
+      "sublabel": "macroesquema documental"
+    },
+    {
+      "id": "capa0",
+      "parent": "capas",
+      "label": "Capa 0 · Entrada",
+      "sublabel": "conjunto y fichas"
+    },
+    {
+      "id": "capa1",
+      "parent": "capas",
+      "label": "Capa 1 · Adquisición",
+      "sublabel": "adaptadores y capturas"
+    },
+    {
+      "id": "capa2",
+      "parent": "capas",
+      "label": "Capa 2 · Normalización",
+      "sublabel": "candidatos y fusión"
+    },
+    {
+      "id": "capa3",
+      "parent": "capas",
+      "label": "Capa 3 · Núcleo",
+      "sublabel": "esquema e índice"
+    },
+    {
+      "id": "capa4",
+      "parent": "capas",
+      "label": "Capa 4 · Verificación",
+      "sublabel": "gates y procedencia"
+    },
+    {
+      "id": "capa5",
+      "parent": "capas",
+      "label": "Capa 5 · Proyecciones",
+      "sublabel": "vista, SQL, JSON-LD"
+    },
+    {
+      "id": "capa6",
+      "parent": "capas",
+      "label": "Capa 6 · Gobernanza",
+      "sublabel": "aprobación y licencias"
+    },
+    {
+      "id": "modelo",
+      "parent": "raiz",
+      "label": "Modelo LinkML",
+      "sublabel": "solo en Notion, no en el directorio"
+    },
+    {
+      "id": "fuentes",
+      "parent": "modelo",
+      "label": "Fuentes y capturas",
+      "sublabel": "Agente Recurso Edicion Captura"
+    },
+    {
+      "id": "documental",
+      "parent": "modelo",
+      "label": "Documental",
+      "sublabel": "Documento Seccion Referencia"
+    },
+    {
+      "id": "lexico",
+      "parent": "modelo",
+      "label": "Léxico",
+      "sublabel": "Palabra Acepcion Orden"
+    },
+    {
+      "id": "procedencia",
+      "parent": "modelo",
+      "label": "Procedencia",
+      "sublabel": "Asercion Evidencia Revision"
+    },
+    {
+      "id": "curacion",
+      "parent": "modelo",
+      "label": "Curación",
+      "sublabel": "Glosario Correspondencia Tarea"
+    },
+    {
+      "id": "complemento",
+      "parent": "modelo",
+      "label": "Complemento de facetas",
+      "sublabel": "Superior MiembroGrupo Coste"
+    },
+    {
+      "id": "propuesto",
+      "parent": "raiz",
+      "label": "Árbol propuesto",
+      "sublabel": "no creado"
+    },
+    {
+      "id": "esquema",
+      "parent": "propuesto",
+      "label": "esquema/",
+      "sublabel": "módulos experimentales"
+    },
+    {
+      "id": "controles",
+      "parent": "propuesto",
+      "label": "controles/",
+      "sublabel": "integridad y huellas"
+    },
+    {
+      "id": "proyecciones",
+      "parent": "propuesto",
+      "label": "proyecciones/",
+      "sublabel": "SQL y JSON-LD"
+    },
+    {
+      "id": "ejemplos",
+      "parent": "propuesto",
+      "label": "ejemplos/",
+      "sublabel": "datos ficticios"
+    },
+    {
+      "id": "pruebas_prop",
+      "parent": "propuesto",
+      "label": "pruebas/",
+      "sublabel": "positivos y regresión"
+    },
+    {
+      "id": "documentacion",
+      "parent": "propuesto",
+      "label": "documentacion/",
+      "sublabel": "decisiones"
+    },
+    {
+      "id": "historico",
+      "parent": "propuesto",
+      "label": "historico/",
+      "sublabel": "paquetes sin modificar"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "En el directorio",
+      "items": [
+        "Existen sitio/, el ADR 0001, la lista permitida y las pruebas locales.",
+        "La portada es HTML, CSS y un script de menú."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Solo en Notion",
+      "items": [
+        "Las clases por bloque y las siete capas viven en OmniGramatekh · LinkML.",
+        "Fichero aparece en la lectura histórica de 20 clases y no en los 19 componentes dibujados.",
+        "No hay canon aprobado ni YAML LinkML en este directorio."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Propuesto, no creado",
+      "items": [
+        "El mapa documental propone esquema, controles, proyecciones, ejemplos, pruebas, documentacion e historico.",
+        "Esa página dice que es una propuesta, no un árbol existente ni submódulos Git."
+      ]
+    }
+  ]
+}

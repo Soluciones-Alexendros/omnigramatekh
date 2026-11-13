@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "ef7ab8f1-e88e-4bb8-8778-cf7441285274",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/erd-documentos-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/erd-documentos-20261113-112344/documentos.html",
+  "specification": {
+    "sha256": "b08b85bd7fcf97c7fdd8e18f3525d7998defe0a09a2c78e339a13d115d9dc688",
+    "bytes": 5306
+  },
+  "artifact": {
+    "sha256": "5adbd38537db2110477c05f18c363c1d96c0b9e1f69f698ea869ab935342c08e",
+    "bytes": 858369
+  }
+}

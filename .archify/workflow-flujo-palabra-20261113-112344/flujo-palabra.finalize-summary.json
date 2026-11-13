@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/workflow-flujo-palabra-20261113-112344/candidate.json",
+    "sha256": "2ff1a7a9bbae07d35c1f5498286211cae8b8b039fe9e70880e7aac840f9c2c3d",
+    "bytes": 6381
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/workflow-flujo-palabra-20261113-112344/flujo-palabra.html",
+    "sha256": "246da255e829cab2ce52231567e29eda1853ca9b50c7c90d192c32a0a5fe4055",
+    "bytes": 858277
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/workflow-flujo-palabra-20261113-112344/flujo-palabra.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/workflow-flujo-palabra-20261113-112344/flujo-palabra.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/workflow-flujo-palabra-20261113-112344/flujo-palabra.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2603,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

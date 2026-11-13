@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Documentos y estructura",
+    "locale": "es",
+    "output": ".archify/erd-documentos-20261113-112344/documentos.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 72,
+    "gapY": 38
+  },
+  "entities": [
+    {
+      "id": "recurso",
+      "label": "RECURSO",
+      "tag": "fuentes",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "recurso_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "agente_id",
+          "type": "string"
+        },
+        {
+          "name": "url_base",
+          "type": "string"
+        },
+        {
+          "name": "tipo_acceso",
+          "type": "string"
+        },
+        {
+          "name": "licencia",
+          "type": "string"
+        },
+        {
+          "name": "notas_acceso",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "documento",
+      "label": "DOCUMENTO",
+      "tag": "documental",
+      "row": 0,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "documento_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "recurso_id",
+          "type": "string",
+          "key": "fk",
+          "references": "recurso.recurso_id"
+        },
+        {
+          "name": "dominio",
+          "type": "string"
+        },
+        {
+          "name": "tipo_documento",
+          "type": "string"
+        },
+        {
+          "name": "emisor_id",
+          "type": "string"
+        },
+        {
+          "name": "identificador_oficial",
+          "type": "string"
+        },
+        {
+          "name": "fecha",
+          "type": "date"
+        },
+        {
+          "name": "rango_normativo",
+          "type": "string"
+        },
+        {
+          "name": "estado_vigencia",
+          "type": "string"
+        },
+        {
+          "name": "url_oficial",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "encabezado_campo",
+      "label": "ENCABEZADO_CAMPO",
+      "tag": "documental",
+      "row": 1,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "campo_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "documento_id",
+          "type": "string",
+          "key": "fk",
+          "references": "documento.documento_id"
+        },
+        {
+          "name": "clave",
+          "type": "string"
+        },
+        {
+          "name": "valor",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "referencia",
+      "label": "REFERENCIA",
+      "tag": "documental",
+      "row": 2,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "referencia_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "origen_tipo",
+          "type": "string"
+        },
+        {
+          "name": "origen_id",
+          "type": "string"
+        },
+        {
+          "name": "destino_tipo",
+          "type": "string"
+        },
+        {
+          "name": "destino_id",
+          "type": "string"
+        },
+        {
+          "name": "tipo_referencia",
+          "type": "string"
+        },
+        {
+          "name": "localizador",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "seccion",
+      "label": "SECCION",
+      "tag": "documental",
+      "row": 3,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "seccion_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "documento_id",
+          "type": "string",
+          "key": "fk",
+          "references": "documento.documento_id"
+        },
+        {
+          "name": "tipo_seccion",
+          "type": "string"
+        },
+        {
+          "name": "orden",
+          "type": "int"
+        },
+        {
+          "name": "localizador",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "recurso-documento",
+      "from": "recurso",
+      "to": "documento",
+      "label": "aloja",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "documento-encabezado",
+      "from": "documento",
+      "to": "encabezado_campo",
+      "label": "declara",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true,
+      "labelDy": 16
+    },
+    {
+      "id": "documento-referencia",
+      "from": "documento",
+      "to": "referencia",
+      "label": "cita",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true,
+      "identifying": false,
+      "variant": "dashed"
+    },
+    {
+      "id": "documento-seccion",
+      "from": "documento",
+      "to": "seccion",
+      "label": "se divide en",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Diseño, no canon",
+      "items": [
+        "emisor_id aparece en Notion sin FK marcada; se deja como campo.",
+        "REFERENCIA usa origen y destino polimórficos, sin FK falsa.",
+        "Cardinalidades y nombres pendientes de comprobación; sin canon aprobado."
+      ]
+    }
+  ]
+}

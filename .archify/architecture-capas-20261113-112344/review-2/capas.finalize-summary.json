@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/candidate.json",
+    "sha256": "4c126583a892d4b3e929f33b27b46ce2eb3b06719caa5f6f18e9c4391d74cbd8",
+    "bytes": 5231
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/capas.html",
+    "sha256": "38bd1073db789972d2ecd920e3f71dd5e4ac29b94c97d9bf5eb89bd579a7d3f3",
+    "bytes": 851746
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/review-2/capas.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/review-2/capas.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/review-2/capas.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 1815,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  },
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 1,
+      "routesOverSuggestedBends": 1
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "id": "v-g",
+            "from": "verificacion",
+            "to": "gobernanza",
+            "label": "revisión",
+            "collectionIndex": 5,
+            "artifactIndex": 6
+          },
+          "right": {
+            "id": "p-r",
+            "from": "proyecciones",
+            "to": "retorno",
+            "label": "cambios",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "point": [
+            905,
+            356
+          ]
+        }
+      ],
+      "detours": [
+        {
+          "relationship": {
+            "id": "p-r",
+            "from": "proyecciones",
+            "to": "retorno",
+            "label": "cambios",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "bends": 3,
+          "stretch": 1
+        }
+      ],
+      "truncated": false
+    },
+    "hints": [
+      "verificacion → gobernanza crosses proyecciones → retorno: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "proyecciones → retorno needs 3 bends: move node proyecciones or retorno so they share a row or column with matching centers, or sit diagonally with a clear corner."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  }
+}

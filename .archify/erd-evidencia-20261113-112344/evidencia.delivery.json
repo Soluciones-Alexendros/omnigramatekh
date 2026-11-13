@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "b96237ed-55d2-4e86-9f4c-70cfe6efc9ff",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/erd-evidencia-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/erd-evidencia-20261113-112344/evidencia.html",
+  "specification": {
+    "sha256": "18718379a4441df6ef9dc379082f131c738b390e69dd51a960a5d30ccaac3f3c",
+    "bytes": 4701
+  },
+  "artifact": {
+    "sha256": "61e53801acde2370e00d42a2b08bf687186aea8a107dc3c69dc61132b6a56d87",
+    "bytes": 855134
+  }
+}
