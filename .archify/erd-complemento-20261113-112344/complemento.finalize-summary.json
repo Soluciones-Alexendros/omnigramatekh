@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "erd",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-complemento-20261113-112344/candidate.json",
+    "sha256": "59dda18797dc585c7682f83c4a3ce1b725e158742b2add8f7758fe22dcc9a50e",
+    "bytes": 6119
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-complemento-20261113-112344/complemento.html",
+    "sha256": "a3d20d743af9d1148033c1aa4b8efc9d72b47e0f030d4b786b93f09efebead77",
+    "bytes": 862786
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-complemento-20261113-112344/complemento.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-complemento-20261113-112344/complemento.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-complemento-20261113-112344/complemento.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2138,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

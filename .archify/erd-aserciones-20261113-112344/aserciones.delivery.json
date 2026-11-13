@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "334034e4-cf3e-41d8-8c6e-1a292c7e125f",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/erd-aserciones-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/erd-aserciones-20261113-112344/aserciones.html",
+  "specification": {
+    "sha256": "01cc2697e8d6a7a2dcdcaa610224603dcdf40dc5a8baf9afdcda9484da5cdbcb",
+    "bytes": 8634
+  },
+  "artifact": {
+    "sha256": "adacbe9cfd91efb99b1def524b0791953af7c629c870d23c2437706b05847152",
+    "bytes": 877171
+  }
+}

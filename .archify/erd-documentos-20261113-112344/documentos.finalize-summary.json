@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "erd",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-documentos-20261113-112344/candidate.json",
+    "sha256": "b08b85bd7fcf97c7fdd8e18f3525d7998defe0a09a2c78e339a13d115d9dc688",
+    "bytes": 5306
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-documentos-20261113-112344/documentos.html",
+    "sha256": "5adbd38537db2110477c05f18c363c1d96c0b9e1f69f698ea869ab935342c08e",
+    "bytes": 858369
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-documentos-20261113-112344/documentos.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-documentos-20261113-112344/documentos.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-documentos-20261113-112344/documentos.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2262,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

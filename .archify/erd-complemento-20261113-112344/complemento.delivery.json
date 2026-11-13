@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "ff7c8eee-0e77-4d61-9cab-4a9200576a7c",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/erd-complemento-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/erd-complemento-20261113-112344/complemento.html",
+  "specification": {
+    "sha256": "59dda18797dc585c7682f83c4a3ce1b725e158742b2add8f7758fe22dcc9a50e",
+    "bytes": 6119
+  },
+  "artifact": {
+    "sha256": "a3d20d743af9d1148033c1aa4b8efc9d72b47e0f030d4b786b93f09efebead77",
+    "bytes": 862786
+  }
+}

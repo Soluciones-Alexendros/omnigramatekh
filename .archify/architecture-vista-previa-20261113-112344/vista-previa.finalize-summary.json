@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/architecture-vista-previa-20261113-112344/candidate.json",
+    "sha256": "67e3846cff19d91b7a5f2bd3e01f4b118fb25a149907c002208f6065e7baf1d6",
+    "bytes": 3085
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/architecture-vista-previa-20261113-112344/vista-previa.html",
+    "sha256": "a88e0dd92e525e6c0c6dc1a80f691d8052caa65c724d60d60a6e9bec908662b4",
+    "bytes": 838231
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-vista-previa-20261113-112344/vista-previa.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-vista-previa-20261113-112344/vista-previa.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/architecture-vista-previa-20261113-112344/vista-previa.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2094,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

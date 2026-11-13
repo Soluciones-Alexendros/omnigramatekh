@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "c789b59e-fc78-4fac-bb24-05badd0253b1",
+  "status": "current",
+  "command": "deliver",
+  "type": "tree",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/tree-componentes-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/tree-componentes-20261113-112344/estructura-componentes.html",
+  "specification": {
+    "sha256": "6db47963851d19f5cdc656dab81e7bfbd238bce8266ce9595b2c9ca74ab8d6c4",
+    "bytes": 6499
+  },
+  "artifact": {
+    "sha256": "e1f58054465e0c1a886c42cf452c1862976552f73b254a9159bc833387a65d3e",
+    "bytes": 892073
+  }
+}

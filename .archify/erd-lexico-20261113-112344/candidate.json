@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Palabras, acepciones y usos",
+    "locale": "es",
+    "output": ".archify/erd-lexico-20261113-112344/lexico.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 72,
+    "gapY": 38
+  },
+  "entities": [
+    {
+      "id": "palabra",
+      "label": "PALABRA",
+      "tag": "lexico",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "palabra_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "termino",
+          "type": "string"
+        },
+        {
+          "name": "lengua",
+          "type": "string"
+        },
+        {
+          "name": "categoria",
+          "type": "string"
+        },
+        {
+          "name": "estado",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "acepcion",
+      "label": "ACEPCION",
+      "tag": "lexico",
+      "row": 1,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "acepcion_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "palabra_id",
+          "type": "string",
+          "key": "fk",
+          "references": "palabra.palabra_id"
+        },
+        {
+          "name": "texto",
+          "type": "string"
+        },
+        {
+          "name": "marcas",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "unidad_pluriverbal",
+      "label": "UNIDAD_PLURIVERBAL",
+      "tag": "lexico",
+      "row": 0,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "unidad_pluriverbal_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "palabra_id",
+          "type": "string",
+          "key": "fk",
+          "references": "palabra.palabra_id"
+        },
+        {
+          "name": "etiqueta",
+          "type": "string"
+        },
+        {
+          "name": "texto",
+          "type": "string"
+        },
+        {
+          "name": "tipo_uso",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "edicion",
+      "label": "EDICION",
+      "tag": "fuentes",
+      "row": 1,
+      "col": 2,
+      "attributes": [
+        {
+          "name": "edicion_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "recurso_id",
+          "type": "string"
+        },
+        {
+          "name": "etiqueta_version",
+          "type": "string"
+        },
+        {
+          "name": "fecha_desde",
+          "type": "date"
+        },
+        {
+          "name": "fecha_hasta",
+          "type": "date"
+        },
+        {
+          "name": "huella_sha256",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "orden_acepcion",
+      "label": "ORDEN_ACEPCION",
+      "tag": "lexico",
+      "row": 1,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "orden_acepcion_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "acepcion_id",
+          "type": "string",
+          "key": "fk",
+          "references": "acepcion.acepcion_id"
+        },
+        {
+          "name": "edicion_id",
+          "type": "string",
+          "key": "fk",
+          "references": "edicion.edicion_id"
+        },
+        {
+          "name": "jerarquia",
+          "type": "string"
+        },
+        {
+          "name": "posicion_en_edicion",
+          "type": "int"
+        },
+        {
+          "name": "orden_logico",
+          "type": "int"
+        },
+        {
+          "name": "orden_criterio",
+          "type": "string"
+        },
+        {
+          "name": "razonamiento",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "palabra-acepcion",
+      "from": "palabra",
+      "to": "acepcion",
+      "label": "tiene",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "palabra-unidad",
+      "from": "palabra",
+      "to": "unidad_pluriverbal",
+      "label": "tiene",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "edicion-orden",
+      "from": "edicion",
+      "to": "orden_acepcion",
+      "label": "fija",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "acepcion-orden",
+      "from": "acepcion",
+      "to": "orden_acepcion",
+      "label": "se ordena en",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Diseño, no canon",
+      "items": [
+        "EDICION entra completa porque ORDEN_ACEPCION la referencia.",
+        "UnidadPluriverbal sustituye al histórico Uso en la copia experimental.",
+        "Sin canon aprobado ni migración del YAML histórico."
+      ]
+    }
+  ]
+}

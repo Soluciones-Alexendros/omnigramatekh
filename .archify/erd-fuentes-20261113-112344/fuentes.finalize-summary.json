@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "erd",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-fuentes-20261113-112344/candidate.json",
+    "sha256": "fabe26b43080d171e0141de85517ed8f71397eaddbf5008c3b0f676918ad292e",
+    "bytes": 3513
+  },
+  "artifact": {
+    "path": "/home/alexendros/Work/omnigramatekh/.archify/erd-fuentes-20261113-112344/fuentes.html",
+    "sha256": "6847d5bd14e96fd997671213eff583be493488587ba8176d8ef07af91a4a8c54",
+    "bytes": 852795
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-fuentes-20261113-112344/fuentes.finalize.json",
+    "summaryReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-fuentes-20261113-112344/fuentes.finalize-summary.json",
+    "browserCheckReceipt": "/home/alexendros/Work/omnigramatekh/.archify/erd-fuentes-20261113-112344/fuentes.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-13T10:14:11.121Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2333,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

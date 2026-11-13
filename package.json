@@ -5,5 +5,10 @@
   "scripts": {
     "test": "python3 sitio/pruebas/run_checks.py",
     "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.10.1"
   }
 }

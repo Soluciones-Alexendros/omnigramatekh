@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "df15431e-c429-4e3f-8830-182b29868354",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/erd-lexico-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/erd-lexico-20261113-112344/lexico.html",
+  "specification": {
+    "sha256": "25a3ebc3fe56f8adbf0fd10958ea42c2a8a19fb5d524040ea4051565ef336aee",
+    "bytes": 4932
+  },
+  "artifact": {
+    "sha256": "67c55302f9b0269c4d1d11a83b997d98a0e29cf76a620932b8aa6bc3e47beff6",
+    "bytes": 856553
+  }
+}

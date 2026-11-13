@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Fuentes, versiones y capturas",
+    "locale": "es",
+    "output": ".archify/erd-fuentes-20261113-112344/fuentes.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 72,
+    "gapY": 38
+  },
+  "entities": [
+    {
+      "id": "agente",
+      "label": "AGENTE",
+      "tag": "fuentes",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        { "name": "agente_id", "type": "string", "key": "pk" },
+        { "name": "nombre", "type": "string" },
+        { "name": "vinculacion", "type": "string" },
+        { "name": "forma_juridica", "type": "string" },
+        { "name": "composicion", "type": "string" },
+        { "name": "capitalizacion", "type": "string" },
+        { "name": "animo_lucro", "type": "bool" },
+        { "name": "id_externo", "type": "string" }
+      ]
+    },
+    {
+      "id": "recurso",
+      "label": "RECURSO",
+      "tag": "fuentes",
+      "row": 1,
+      "col": 0,
+      "attributes": [
+        { "name": "recurso_id", "type": "string", "key": "pk" },
+        { "name": "agente_id", "type": "string", "key": "fk", "references": "agente.agente_id" },
+        { "name": "url_base", "type": "string" },
+        { "name": "tipo_acceso", "type": "string" },
+        { "name": "licencia", "type": "string" },
+        { "name": "notas_acceso", "type": "string" }
+      ]
+    },
+    {
+      "id": "edicion",
+      "label": "EDICION",
+      "tag": "fuentes",
+      "row": 2,
+      "col": 0,
+      "attributes": [
+        { "name": "edicion_id", "type": "string", "key": "pk" },
+        { "name": "recurso_id", "type": "string", "key": "fk", "references": "recurso.recurso_id" },
+        { "name": "etiqueta_version", "type": "string" },
+        { "name": "fecha_desde", "type": "date" },
+        { "name": "fecha_hasta", "type": "date" },
+        { "name": "huella_sha256", "type": "string" }
+      ]
+    },
+    {
+      "id": "captura",
+      "label": "CAPTURA",
+      "tag": "fuentes",
+      "row": 3,
+      "col": 0,
+      "attributes": [
+        { "name": "captura_id", "type": "string", "key": "pk" },
+        { "name": "edicion_id", "type": "string", "key": "fk", "references": "edicion.edicion_id" },
+        { "name": "metodo", "type": "string" },
+        { "name": "fecha_ejecucion", "type": "datetime" },
+        { "name": "parametros", "type": "string" },
+        { "name": "registros", "type": "int" },
+        { "name": "resultado", "type": "string" }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "agente-recurso",
+      "from": "agente",
+      "to": "recurso",
+      "label": "publica",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "recurso-edicion",
+      "from": "recurso",
+      "to": "edicion",
+      "label": "se versiona en",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "edicion-captura",
+      "from": "edicion",
+      "to": "captura",
+      "label": "se captura en",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Diseño, no canon",
+      "items": [
+        "Columnas del toggle de Notion; tipos tal como están escritos allí.",
+        "Cardinalidades pendientes de comprobación en el esquema.",
+        "Nombres nuevos no migran el YAML histórico; no hay canon aprobado."
+      ]
+    }
+  ]
+}

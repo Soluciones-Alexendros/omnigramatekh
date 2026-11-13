@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Glosarios, correspondencias y tareas",
+    "locale": "es",
+    "output": ".archify/erd-curacion-20261113-112344/curacion.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 72,
+    "gapY": 38
+  },
+  "entities": [
+    {
+      "id": "glosario",
+      "label": "GLOSARIO",
+      "tag": "curacion",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "glosario_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "tipo_glosario",
+          "type": "string"
+        },
+        {
+          "name": "etiqueta",
+          "type": "string"
+        },
+        {
+          "name": "criterio_proximidad",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "palabra",
+      "label": "PALABRA",
+      "tag": "lexico",
+      "row": 0,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "palabra_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "termino",
+          "type": "string"
+        },
+        {
+          "name": "lengua",
+          "type": "string"
+        },
+        {
+          "name": "categoria",
+          "type": "string"
+        },
+        {
+          "name": "estado",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "recurso",
+      "label": "RECURSO",
+      "tag": "fuentes",
+      "row": 0,
+      "col": 2,
+      "attributes": [
+        {
+          "name": "recurso_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "agente_id",
+          "type": "string"
+        },
+        {
+          "name": "url_base",
+          "type": "string"
+        },
+        {
+          "name": "tipo_acceso",
+          "type": "string"
+        },
+        {
+          "name": "licencia",
+          "type": "string"
+        },
+        {
+          "name": "notas_acceso",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "glosario_palabra",
+      "label": "GLOSARIO_PALABRA",
+      "tag": "curacion",
+      "row": 1,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "glosario_palabra_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "glosario_id",
+          "type": "string",
+          "key": "fk",
+          "references": "glosario.glosario_id"
+        },
+        {
+          "name": "palabra_id",
+          "type": "string",
+          "key": "fk",
+          "references": "palabra.palabra_id"
+        },
+        {
+          "name": "proximidad",
+          "type": "int"
+        },
+        {
+          "name": "justificacion",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "correspondencia",
+      "label": "CORRESPONDENCIA",
+      "tag": "curacion",
+      "row": 2,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "correspondencia_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "palabra_id",
+          "type": "string",
+          "key": "fk",
+          "references": "palabra.palabra_id"
+        },
+        {
+          "name": "esquema_destino",
+          "type": "string"
+        },
+        {
+          "name": "id_destino",
+          "type": "string"
+        },
+        {
+          "name": "tipo_mapeo",
+          "type": "string"
+        },
+        {
+          "name": "justificacion",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "tarea",
+      "label": "TAREA",
+      "tag": "curacion",
+      "row": 3,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "tarea_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "palabra_id",
+          "type": "string",
+          "key": "fk",
+          "references": "palabra.palabra_id"
+        },
+        {
+          "name": "recurso_id",
+          "type": "string",
+          "key": "fk",
+          "references": "recurso.recurso_id"
+        },
+        {
+          "name": "estado_tarea",
+          "type": "string"
+        },
+        {
+          "name": "fecha_limite",
+          "type": "date"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "glosario-gp",
+      "from": "glosario",
+      "to": "glosario_palabra",
+      "label": "agrupa",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "palabra-gp",
+      "from": "palabra",
+      "to": "glosario_palabra",
+      "label": "se agrupa en",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "palabra-corr",
+      "from": "palabra",
+      "to": "correspondencia",
+      "label": "se mapea",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "palabra-tarea",
+      "from": "palabra",
+      "to": "tarea",
+      "label": "planifica",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "recurso-tarea",
+      "from": "recurso",
+      "to": "tarea",
+      "label": "abastece",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Diseño, no canon",
+      "items": [
+        "TAREA permanece en el contenedor experimental; su separación del canon está pendiente.",
+        "Sin canon aprobado ni migración del YAML histórico."
+      ]
+    }
+  ]
+}

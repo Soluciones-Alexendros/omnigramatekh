@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "b38d037e-462a-4f3e-9d6b-150c358187c1",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/architecture-capas-20261113-112344/capas.html",
+  "specification": {
+    "sha256": "e119f41e6fbff59a3edaa39b5f55719d66fbe5ebf17c1e22793e25b17c573c88",
+    "bytes": 4799
+  },
+  "artifact": {
+    "sha256": "1f2471b6e3cefc95f7f2d5d33d63b3243e5f1cda9109b41af4e8caa71431fa20",
+    "bytes": 851896
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Complemento de facetas · agentes y recurso",
+    "locale": "es",
+    "output": ".archify/erd-complemento-20261113-112344/complemento.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 72,
+    "gapY": 38
+  },
+  "entities": [
+    {
+      "id": "agente",
+      "label": "AGENTE",
+      "tag": "agentes",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "agente_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "funcion",
+          "type": "string"
+        },
+        {
+          "name": "sigla",
+          "type": "string"
+        },
+        {
+          "name": "norma_constitutiva",
+          "type": "string"
+        },
+        {
+          "name": "id_esquema",
+          "type": "string"
+        },
+        {
+          "name": "animo_lucro",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "id": "recurso",
+      "label": "RECURSO",
+      "tag": "recurso",
+      "row": 0,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "recurso_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "url_datos",
+          "type": "string"
+        },
+        {
+          "name": "url_documento",
+          "type": "string"
+        },
+        {
+          "name": "robots_url",
+          "type": "string"
+        },
+        {
+          "name": "fecha_comprobacion_robots",
+          "type": "date"
+        },
+        {
+          "name": "uso_referencia",
+          "type": "string"
+        },
+        {
+          "name": "uso_entrenamiento",
+          "type": "string"
+        },
+        {
+          "name": "cumplimiento_accesibilidad",
+          "type": "string"
+        },
+        {
+          "name": "cumplimiento_privacidad",
+          "type": "string"
+        },
+        {
+          "name": "cumplimiento_seguridad",
+          "type": "string"
+        },
+        {
+          "name": "cumplimiento_societario",
+          "type": "string"
+        }
+      ],
+      "width": 280
+    },
+    {
+      "id": "superior",
+      "label": "SUPERIOR",
+      "tag": "agentes",
+      "row": 1,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "superior_relacion_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "agente_id",
+          "type": "string",
+          "key": "fk",
+          "references": "agente.agente_id"
+        },
+        {
+          "name": "superior_id",
+          "type": "string",
+          "key": "fk",
+          "references": "agente.agente_id"
+        },
+        {
+          "name": "tipo_relacion",
+          "type": "string"
+        },
+        {
+          "name": "fuente",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "miembro_grupo",
+      "label": "MIEMBRO_GRUPO",
+      "tag": "agentes",
+      "row": 2,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "miembro_grupo_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "agente_id",
+          "type": "string",
+          "key": "fk",
+          "references": "agente.agente_id"
+        },
+        {
+          "name": "categoria",
+          "type": "string"
+        },
+        {
+          "name": "cantidad",
+          "type": "int"
+        },
+        {
+          "name": "designacion",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "coste",
+      "label": "COSTE",
+      "tag": "agentes",
+      "row": 3,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "coste_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "agente_id",
+          "type": "string",
+          "key": "fk",
+          "references": "agente.agente_id"
+        },
+        {
+          "name": "concepto",
+          "type": "string"
+        },
+        {
+          "name": "nivel",
+          "type": "string"
+        },
+        {
+          "name": "importe",
+          "type": "decimal"
+        },
+        {
+          "name": "moneda",
+          "type": "string"
+        },
+        {
+          "name": "periodo",
+          "type": "string"
+        },
+        {
+          "name": "estado_importe",
+          "type": "string"
+        },
+        {
+          "name": "asercion_id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "estado_dato_campo",
+      "label": "ESTADO_DATO_CAMPO",
+      "tag": "recurso",
+      "row": 1,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "campo",
+          "type": "string"
+        },
+        {
+          "name": "estado_dato",
+          "type": "string"
+        },
+        {
+          "name": "motivo",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "agente-superior",
+      "from": "agente",
+      "to": "superior",
+      "label": "agente declarado",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "agente-miembro",
+      "from": "agente",
+      "to": "miembro_grupo",
+      "label": "describe",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "agente-coste",
+      "from": "agente",
+      "to": "coste",
+      "label": "registra",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "recurso-estado",
+      "from": "recurso",
+      "to": "estado_dato_campo",
+      "label": "declara",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true,
+      "identifying": false,
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Campos seleccionados",
+      "items": [
+        "El toggle de Notion muestra campos seleccionados, no todas las columnas del YAML.",
+        "asercion_id en COSTE es opcional y no lleva FK en este plano.",
+        "RelacionEtimologica sigue pendiente. No hay canon aprobado."
+      ]
+    }
+  ]
+}

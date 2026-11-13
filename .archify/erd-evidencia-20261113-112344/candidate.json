@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Evidencia y revisión",
+    "locale": "es",
+    "output": ".archify/erd-evidencia-20261113-112344/evidencia.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 72,
+    "gapY": 38
+  },
+  "entities": [
+    {
+      "id": "seccion",
+      "label": "SECCION",
+      "tag": "documental",
+      "row": 1,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "seccion_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "documento_id",
+          "type": "string"
+        },
+        {
+          "name": "tipo_seccion",
+          "type": "string"
+        },
+        {
+          "name": "orden",
+          "type": "int"
+        },
+        {
+          "name": "localizador",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "asercion",
+      "label": "ASERCION",
+      "tag": "procedencia",
+      "row": 0,
+      "col": 1,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "asercion_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "sujeto_tipo",
+          "type": "string"
+        },
+        {
+          "name": "sujeto_id",
+          "type": "string"
+        },
+        {
+          "name": "predicado",
+          "type": "string"
+        },
+        {
+          "name": "valor",
+          "type": "string"
+        },
+        {
+          "name": "edicion_id",
+          "type": "string"
+        },
+        {
+          "name": "captura_id",
+          "type": "string"
+        },
+        {
+          "name": "localizador",
+          "type": "string"
+        },
+        {
+          "name": "fecha_captura",
+          "type": "datetime"
+        },
+        {
+          "name": "contenido",
+          "type": "string"
+        },
+        {
+          "name": "fundamento",
+          "type": "string"
+        },
+        {
+          "name": "razonamiento",
+          "type": "string"
+        },
+        {
+          "name": "estado",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "evidencia",
+      "label": "EVIDENCIA",
+      "tag": "procedencia",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "evidencia_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "asercion_id",
+          "type": "string",
+          "key": "fk",
+          "references": "asercion.asercion_id"
+        },
+        {
+          "name": "seccion_id",
+          "type": "string",
+          "key": "fk",
+          "references": "seccion.seccion_id"
+        },
+        {
+          "name": "cita",
+          "type": "string"
+        },
+        {
+          "name": "inicio_caracter",
+          "type": "int"
+        },
+        {
+          "name": "fin_caracter_exclusivo",
+          "type": "int"
+        },
+        {
+          "name": "huella_documento",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "revision",
+      "label": "REVISION",
+      "tag": "procedencia",
+      "row": 0,
+      "col": 2,
+      "attributes": [
+        {
+          "name": "revision_id",
+          "type": "string",
+          "key": "pk"
+        },
+        {
+          "name": "asercion_id",
+          "type": "string",
+          "key": "fk",
+          "references": "asercion.asercion_id"
+        },
+        {
+          "name": "estado_revision",
+          "type": "string"
+        },
+        {
+          "name": "revisor",
+          "type": "string"
+        },
+        {
+          "name": "fecha",
+          "type": "date"
+        },
+        {
+          "name": "motivo",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "seccion-evidencia",
+      "from": "seccion",
+      "to": "evidencia",
+      "label": "contiene",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    },
+    {
+      "id": "asercion-evidencia",
+      "from": "asercion",
+      "to": "evidencia",
+      "label": "se apoya en",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true,
+      "labelDy": 24
+    },
+    {
+      "id": "asercion-revision",
+      "from": "asercion",
+      "to": "revision",
+      "label": "se revisa en",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "toOptional": true
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Diseño, no canon",
+      "items": [
+        "Offsets Unicode desde cero con fin exclusivo, según el diseño experimental.",
+        "Cardinalidades pendientes de comprobación; sin canon aprobado."
+      ]
+    }
+  ]
+}

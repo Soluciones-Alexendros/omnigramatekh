@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "6ab960a4-c5b4-49e3-b7b6-9b3b5a16249b",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/alexendros/Work/omnigramatekh/.archify/architecture-vista-previa-20261113-111148/candidate.json",
+  "output": "/home/alexendros/Work/omnigramatekh/.archify/architecture-vista-previa-20261113-111148/vista-previa.html",
+  "specification": {
+    "sha256": "b775471124a27538eb9270eba1106f74fbf5ebd35700ad097638ab0dd4bfa870",
+    "bytes": 3409
+  },
+  "artifact": {
+    "sha256": "d3d67c9186c5154e250d39659c2fb80f8d2a170f2ba65744ccb7297f0b9cf915",
+    "bytes": 838275
+  }
+}
