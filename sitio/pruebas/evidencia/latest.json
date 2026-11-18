@@ -1,8 +1,8 @@
 {
-  "run_id": "sitio-local-20261118T184826Z",
+  "run_id": "sitio-local-20261118T185327Z",
   "phase": "VALIDATE",
   "target": "sitio/",
-  "generated_at": "2026-11-18T18:48:26.040615+00:00",
+  "generated_at": "2026-11-18T18:53:27.085163+00:00",
   "artifact_sha256": {
     "index.html": "6601bc7c35087bea1bbac73e49743329de095c0497940b4695bb8c8bfe4cd08a",
     "tokens.css": "ef28657bcef9fd04486830d2636445e3bc853a107756fa36a5dc6c8a6e8a9a4b",
