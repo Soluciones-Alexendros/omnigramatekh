@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+# Valida que el asunto del commit siga Conventional Commits.
+# Permisivo a propósito: deja pasar merge, revert y fixup/squash de rebase.
+
+msg_file="$1"
+subject=$(head -n1 "$msg_file")
+
+# Mensajes generados por Git o por el revisor que no hay que tocar.
+case "$subject" in
+  "Merge "*|"Revert "*|"fixup! "*|"squash! "*|"amend! "*|"Initial commit"*)
+    exit 0
+    ;;
+esac
+
+pattern='^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)(\([a-z0-9._/-]+\))?!?: .{1,}'
+
+if printf '%s' "$subject" | grep -Eq "$pattern"; then
+  exit 0
+fi
+
+cat >&2 <<EOF
+✖ Asunto de commit no válido:
+
+    $subject
+
+Convención (Conventional Commits, ver CONTRIBUTING.md):
+
+    <tipo>[ámbito]: <descripción>
+
+    tipos: feat fix docs style refactor perf test chore ci build revert
+    ejemplos:
+      feat(linkml): añadir validador de ciclos
+      fix(sitio): corregir ruta rota en el menú
+      docs: actualizar el mapeo de entidades
+EOF
+exit 1

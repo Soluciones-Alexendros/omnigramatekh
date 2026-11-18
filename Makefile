@@ -10,10 +10,11 @@ CHECK_STRUCTURE := bash scripts/check-structure.sh
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test lint lint-fix validate validate-structure validate-linkml validate-docs clean
+.PHONY: help setup test lint lint-fix validate validate-structure validate-linkml validate-docs validate-links clean
 
 help:
 	@echo "Targets disponibles:"
+	@echo "  make setup             - Prepara un clon nuevo (npm ci + hooks de Husky)"
 	@echo "  make test              - Tests locales (npm test: checks T01–T09 del sitio)"
 	@echo "  make lint              - Formato Prettier (falla si hay diferencias)"
 	@echo "  make lint-fix          - Reescribe el formato con Prettier"
@@ -21,7 +22,13 @@ help:
 	@echo "  make validate-structure- Estructura P1 (scripts/check-structure.sh, perfil P1)"
 	@echo "  make validate-linkml   - Smoke de las herramientas LinkML"
 	@echo "  make validate-docs     - Formato de la documentación"
+	@echo "  make validate-links    - Enlaces relativos de la documentación"
 	@echo "  make clean             - Limpia cachés locales (no borra entregables)"
+
+# Preparación de un clon nuevo: dependencias exactas del lockfile + hooks. 
+setup:
+	npm ci
+	@echo "✅ Entorno listo (node $(shell node -v))"
 
 # Tests: exit 1 si alguna prueba T01–T09 falla; informa de las manuales.
 test:
@@ -33,8 +40,8 @@ lint:
 lint-fix:
 	npx prettier --write .
 
-validate: lint test validate-structure validate-linkml
-	@echo "✅ Gate completo OK (lint + test + estructura P1 + smoke LinkML)"
+validate: lint test validate-structure validate-linkml validate-docs validate-links
+	@echo "✅ Gate completo OK (lint + test + estructura P1 + smoke LinkML + docs + enlaces)"
 
 validate-structure:
 	@$(CHECK_STRUCTURE) . --profile P1
@@ -44,7 +51,10 @@ validate-linkml:
 
 validate-docs:
 	npx prettier --check "documentacion/**/*.md" "docs/**/*.md" \
-		README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md AGENTS.md ARCHITECTURE.md
+		README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md AGENTS.md ARCHITECTURE.md CODE_OF_CONDUCT.md
+
+validate-links:
+	python3 scripts/check_links.py
 
 # Solo cachés y residuos regenerables. Los diagramas de .archify/ son
 # entregables versionados: no se tocan aquí.

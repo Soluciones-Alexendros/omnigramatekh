@@ -1,0 +1,27 @@
+# Normalización de finales de línea: LF en todo el repo, sin excepciones.
+* text=auto eol=lf
+
+# Binarios explícitos.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+
+# --- Estadísticas de GitHub ---------------------------------------------
+# Los diagramas Archify son artefactos generados: sin esto dominan el
+# recuento de lenguaje (13 MB de HTML frente a 22 KB de Python).
+.archify/** linguist-generated=true linguist-documentation=true
+sitio/pruebas/evidencia/** linguist-generated=true
+
+# Documentación: no compite en el recuento de lenguaje.
+docs/** linguist-documentation=true
+documentacion/** linguist-documentation=true
+*.md linguist-documentation=true
+LICENSE linguist-documentation=true
+
+# Lenguaje real del proyecto para GitHub.
+*.sh linguist-language=Shell
+*.py linguist-language=Python

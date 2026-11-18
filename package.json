@@ -3,6 +3,9 @@
   "version": "0.2.1",
   "private": true,
   "description": "Vista previa local experimental y planos Archify de OmniGramatekh",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "test": "npm run test:sitio && npm run test:js",
     "test:sitio": "python3 sitio/pruebas/run_checks.py",

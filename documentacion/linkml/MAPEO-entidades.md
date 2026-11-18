@@ -114,5 +114,5 @@ D1 y no incluía `ATESTIGUACION`, `ORDEN`, `EVIDENCIA`, `ORDEN_ACEPCION`,
 ## 6. Referencias
 
 - [SPEC-modelo-linkml.md](SPEC-modelo-linkml.md) — especificación del modelo y la skill
-- [ADR 0002](../../adr/0002-incorporacion-herramientas-linkml.md) — ubicación de la herramienta
-- `herramientas/linkml/references/project-integration.md` — reglas de proyección
+- [ADR 0002](../adr/0002-incorporacion-herramientas-linkml.md) — ubicación de la herramienta
+- [project-integration.md](../../herramientas/linkml/references/project-integration.md) — reglas de proyección

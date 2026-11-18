@@ -1,0 +1,11 @@
+# Configuración del selector de issues.
+# Sin issues en blanco: cada reporte debe pasar por una plantilla.
+blank_issues_enabled: false
+
+contact_links:
+  - name: Vulnerabilidad de seguridad
+    url: https://github.com/Soluciones-Alexendros/omnigramatekh/security/policy
+    about: No abras un issue público. Sigue la política de divulgación coordinada de SECURITY.md.
+  - name: Documentación del proyecto
+    url: https://github.com/Soluciones-Alexendros/omnigramatekh/blob/main/docs/README.md
+    about: Arquitectura, guías y runbooks antes de abrir un issue.

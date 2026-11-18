@@ -10,7 +10,7 @@ Gracias por tu interés en contribuir a **OmniGramatekh**.
 
 ## Código de Conducta
 
-Este proyecto sigue el [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct/). Al participar, se espera que mantengas este código. Reporta conductas inaceptables a conduct@alexendros.dev.
+Este proyecto sigue el [Código de Conducta](CODE_OF_CONDUCT.md) (adaptación del Contributor Covenant 2.1). Al participar, se espera que lo respetes. Reporta conductas inaceptables a conduct@alexendros.dev.
 
 ## Cómo Contribuir
 
