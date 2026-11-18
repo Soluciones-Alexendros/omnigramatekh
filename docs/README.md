@@ -42,6 +42,7 @@ docs/
 | `ARCHITECTURE.md`                            | Arquitectura actual, en la raíz del repo       |
 | `documentacion/adr/`                         | Architecture Decision Records                  |
 | `documentacion/linkml/SPEC-modelo-linkml.md` | Especificación del modelo léxico y de la skill |
+| `documentacion/linkml/MAPEO-entidades.md`    | LinkML (canónico) ↔ SQL (proyección)           |
 | `CONTRIBUTING.md`                            | Guía de contribución                           |
 | `SECURITY.md`                                | Política de seguridad                          |
 | `CHANGELOG.md`                               | Historial de cambios                           |

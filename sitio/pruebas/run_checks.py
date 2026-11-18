@@ -121,13 +121,8 @@ def check_t03(html: str, js: str) -> dict:
     )
 
 
-def check_t04() -> dict:
-    return result(
-        "T04",
-        "not_run",
-        "Sin analizador automático instalado en este entorno de prueba (axe/pa11y/lighthouse no invocados).",
-        ["REQ-07"],
-    )
+# T04 (accesibilidad automática) vive en sitio/pruebas/test_a11y.js: axe-core sobre
+# el HTML real, ejecutado por `npm run test:js`. Aquí no se duplica ni se finge.
 
 
 def check_t05(html: str, css: str, js: str) -> dict:
@@ -230,7 +225,6 @@ def main() -> int:
         check_t01(html, allow),
         check_t02(html),
         check_t03(html, js),
-        check_t04(),
         check_t05(html, css, js),
         check_t06(html),
         check_t07(),

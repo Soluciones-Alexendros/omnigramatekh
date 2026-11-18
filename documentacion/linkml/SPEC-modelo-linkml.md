@@ -129,6 +129,10 @@ herramientas/linkml/
     ├── schema-template.yaml    # laboratorio mínimo (Catalog/Source/Word)
     ├── instance-valid.yaml
     └── instance-invalid.yaml
+
+documentacion/linkml/
+├── SPEC-modelo-linkml.md       # este documento
+└── MAPEO-entidades.md          # LinkML (canónico) ↔ SQL (proyección)
 ```
 
 ## Contenidos de la skill (mapa de conocimiento)
@@ -215,22 +219,19 @@ python3 herramientas/linkml/scripts/linkml_env.py                    # ¿hay ent
 
 ## Open Questions
 
-1. **¿Se construye ya el esquema real del modelo léxico?** Hoy solo existe el
-   laboratorio ficticio. Propuesta: no abrir el modelo hasta cerrar el mapping
-   de entidades (ver punto 2).
-2. **¿Cuál es el vocabulario canónico de entidades?** El diseño de referencia de
-   Notion usa 19 tablas en mayúscula (`AGENTE`, `RECURSO`, `EDICION`, `CAPTURA`,
-   `ASERCION`…); la skill usa PascalCase (`Fichero`, `Fuente`, `Palabra`,
-   `Acepcion`, `Uso`). Propuesta: fijar el LinkML como canónico y escribir un
-   `documentacion/linkml/MAPEO-entidades.md` con la correspondencia explícita
-   tabla ↔ clase, marcando las que aún no existen.
+1. **¿Se construye ya el esquema real del modelo léxico?** Resuelto:
+   no hasta formalizar el mapping de entidades (punto 2). Hoy solo existe el
+   laboratorio ficticio; abrir el modelo sin mapping genera deuda de migración.
+2. **¿Cuál es el vocabulario canónico de entidades?** Resuelto: LinkML en
+   PascalCase es el canon y las 19 tablas SQL son proyección. La correspondencia
+   está en [MAPEO-entidades.md](MAPEO-entidades.md), con las clases que aún no
+   existen marcadas como **PENDIENTE** y `Catalogo` como **INTERNA**.
 3. **¿Pin exacto `linkml==1.12.1` o rango `~=1.12`?** Propuesta: pin exacto.
    Reproducibilidad y la skill registra la versión realmente ejecutada.
 4. **¿Ubicación por defecto del venv?** Resuelto: `~/Projects/linkml/venvs/linkml`,
    parametrizable con `--venv-dir`.
 5. **¿El bootstrap instala `docker` como ruta OCI alternativa?** Propuesta: no;
    solo documentar la imagen `docker.io/linkml/linkml`.
-6. **¿Idioma de la skill y sus referencias?** Hoy están en inglés y el resto del
-   repo en español. Propuesta: mantener la skill en inglés (convención del
-   ecosistema LinkML) y declarar esa excepción en `ARCHITECTURE.md`; alternativa:
-   traducirla al español para dejar un único idioma.
+6. **¿Idioma de la skill y sus referencias?** Resuelto: se mantiene en inglés
+   como excepción declarada en `ARCHITECTURE.md` (convención del ecosistema
+   LinkML), con la especificación del modelo en español.

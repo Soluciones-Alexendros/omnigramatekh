@@ -1,16 +1,18 @@
 {
   "name": "omnigramatekh",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "Vista previa local experimental y planos Archify de OmniGramatekh",
   "scripts": {
     "test": "npm run test:sitio && npm run test:js",
     "test:sitio": "python3 sitio/pruebas/run_checks.py",
-    "test:js": "node --test sitio/pruebas/test_menu.js",
+    "test:js": "node --test sitio/pruebas/test_menu.js sitio/pruebas/test_a11y.js",
     "prepare": "husky"
   },
   "devDependencies": {
+    "axe-core": "^4.10.0",
     "husky": "^9.1.7",
+    "jsdom": "^24.1.0",
     "lint-staged": "^17.6.0",
     "prettier": "^3.10.1"
   }

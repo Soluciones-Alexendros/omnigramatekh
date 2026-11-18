@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+_(sin cambios pendientes)_
+
+## [0.2.1] - 2026-11-18
+
 ### Added
 
 - `scripts/check-structure.sh`: validador P1 vendorizado (antes dependía de la
   ruta absoluta de un skill fuera del repo).
 - `sitio/pruebas/test_menu.js`: pruebas de comportamiento del menú de navegación.
+- `sitio/pruebas/test_a11y.js`: T04 pasa a ser automática con axe-core (WCAG 2.1
+  AA) sobre el HTML real; una violación rompe el gate.
+- `documentacion/linkml/MAPEO-entidades.md`: LinkML canónico ↔ SQL de proyección.
+- `axe-core` y `jsdom` como devDependencies del gate de accesibilidad.
 
 ### Changed
 
@@ -26,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (ADRs y especificaciones).
 - `.archify/`: solo se versionan el artefacto `.html` y su `candidate.json`;
   los recibos y pasos intermedios quedan fuera del control de versiones.
+- `sitio/pruebas/run_checks.py`: el gate separa lo bloqueante de lo no
+  verificado; T04 deja de reportarse aquí porque la cubre `test_a11y.js`.
+- `renovate.json`: sin automerge; toda actualización pasa por revisión.
 
 ### Fixed
 
