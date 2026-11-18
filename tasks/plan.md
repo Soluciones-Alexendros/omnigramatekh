@@ -1,5 +1,8 @@
 # Plan: Estructura P1 — omnigramatekh
 
+> **Estado: ejecutado y cerrado en v0.2.0** (2026-11-18). Todos los checkpoints
+> CP1–CP7 en verde. Se conserva como registro de la planificación.
+
 ## Major Components
 
 | Module         | Files/Directories                                                                                       | Type                   |

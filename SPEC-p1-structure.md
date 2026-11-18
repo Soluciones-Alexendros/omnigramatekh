@@ -1,5 +1,10 @@
 # Spec: Estructura P1 — omnigramatekh
 
+> **Estado: completado.** Ejecutado y publicado en v0.2.0 (2026-11-18).
+> El validador vive ahora en `scripts/check-structure.sh` (vendorizado), no en
+> la ruta de un skill fuera del repo. Se conserva como registro de la
+> especificación.
+
 ## Capability Map (Phase 0)
 
 | Module id      | Responsibility                                                                                                    | Depends on |
@@ -18,7 +23,7 @@ Build order: governance → ci-cd, issues, docs-structure → readme-fix
 
 ### Objective
 
-Completar la estructura de perfil P1 requerida por el canon de la flota (Soluciones-Alexendros) para que `check-product-structure.sh` pase sin errores. El repo es un proyecto experimental de diagnóstico y actualización del español-castellano con sitio estático en `sitio/`, herramientas LinkML en `herramientas/linkml/` y documentación en `documentacion/`.
+Completar la estructura de perfil P1 requerida por el canon de la flota (Soluciones-Alexendros) para que `scripts/check-structure.sh` pase sin errores. El repo es un proyecto experimental de diagnóstico y actualización del español-castellano con sitio estático en `sitio/`, herramientas LinkML en `herramientas/linkml/` y documentación en `documentacion/`.
 
 ### Tech Stack
 
@@ -32,7 +37,7 @@ Completar la estructura de perfil P1 requerida por el canon de la flota (Solucio
 
 ```bash
 # Validar estructura P1
-bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .
+bash scripts/check-structure.sh . --profile P1
 
 # Lint/formato (existente)
 npm run lint
@@ -92,7 +97,7 @@ omnigramatekh/
 ### Testing Strategy
 
 - **Unit**: N/A (archivos estáticos)
-- **Integración**: `check-product-structure.sh .` debe devolver exit 0
+- **Integración**: `scripts/check-structure.sh . --profile P1` debe devolver exit 0
 - **Smoke**: Verificar que CI workflow es válido con `actionlint`
 - **Cobertura**: 100% de archivos P1 requeridos presentes
 
@@ -101,7 +106,7 @@ omnigramatekh/
 - **Always**:
   - Usar plantillas del canon de la flota cuando existan
   - Mantener compatibilidad con estructura existente (sitio/, herramientas/, documentacion/)
-  - Validar con `check-product-structure.sh` tras cada módulo
+  - Validar con `scripts/check-structure.sh` tras cada módulo
 - **Ask first**:
   - Cambiar licencia a algo distinto de MIT
   - Añadir dependencias npm nuevas
@@ -113,7 +118,7 @@ omnigramatekh/
 
 ### Success Criteria
 
-1. `bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .` → exit 0, sin errores P1
+1. `bash scripts/check-structure.sh . --profile P1` → exit 0, sin errores P1
 2. Todos los 17 archivos/directorios faltantes creados
 3. README.md incluye `### Propósito de este documento`
 4. `actionlint` valida `.github/workflows/ci.yml` sin errores

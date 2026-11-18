@@ -222,10 +222,11 @@ python3 herramientas/linkml/scripts/linkml_env.py                    # ¿hay ent
 1. **¿Se construye ya el esquema real del modelo léxico?** Resuelto:
    no hasta formalizar el mapping de entidades (punto 2). Hoy solo existe el
    laboratorio ficticio; abrir el modelo sin mapping genera deuda de migración.
-2. **¿Cuál es el vocabulario canónico de entidades?** Resuelto: LinkML en
-   PascalCase es el canon y las 19 tablas SQL son proyección. La correspondencia
-   está en [MAPEO-entidades.md](MAPEO-entidades.md), con las clases que aún no
-   existen marcadas como **PENDIENTE** y `Catalogo` como **INTERNA**.
+2. **¿Cuál es el vocabulario canónico de entidades?** Resuelto en cuanto al
+   criterio: LinkML es el canon y las tablas SQL son proyección. Pero el
+   inventario **no está cerrado**: el listado de 19 tablas y los ERD
+   versionados discrepan en 10 entidades. [MAPEO-entidades.md](MAPEO-entidades.md)
+   lo documenta (D1–D6) y fija el orden de resolución. No se inventan clases.
 3. **¿Pin exacto `linkml==1.12.1` o rango `~=1.12`?** Propuesta: pin exacto.
    Reproducibilidad y la skill registra la versión realmente ejecutada.
 4. **¿Ubicación por defecto del venv?** Resuelto: `~/Projects/linkml/venvs/linkml`,
