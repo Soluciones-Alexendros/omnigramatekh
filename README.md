@@ -1,5 +1,11 @@
 # OmniGramatekh
 
+### Propósito de este documento
+
+Portada del repositorio: describe qué es OmniGramatekh (diagnóstico y actualización del español-castellano, repo experimental), cómo previsualizar el sitio estático local, cómo ejecutar pruebas, dónde están los diagramas Archify, las herramientas LinkML, y los límites del proyecto (sin despliegue, sin acoplamiento a Notion).
+
+---
+
 Diagnosis y Actualización del Español-Castellano. Repositorio de trabajo experimental.
 
 ## Vista previa local

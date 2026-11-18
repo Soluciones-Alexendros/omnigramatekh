@@ -1,14 +1,14 @@
 {
-  "run_id": "sitio-local-20261113T103540Z",
+  "run_id": "sitio-local-20261118T184826Z",
   "phase": "VALIDATE",
   "target": "sitio/",
-  "generated_at": "2026-11-13T10:35:40.028840+00:00",
+  "generated_at": "2026-11-18T18:48:26.040615+00:00",
   "artifact_sha256": {
-    "index.html": "db95a6903b93b66e59e8c5fab3a40e86f0086f9c6b7b7adc0ead630d978ac831",
-    "tokens.css": "c6a958fc270516d8d21cea8da085631a265d7d31d239aa6a900ac19d6cfdee5c",
+    "index.html": "6601bc7c35087bea1bbac73e49743329de095c0497940b4695bb8c8bfe4cd08a",
+    "tokens.css": "ef28657bcef9fd04486830d2636445e3bc853a107756fa36a5dc6c8a6e8a9a4b",
     "sitio.css": "6da528134960457aebe1fe7687eb59e7e80792dcfe46207f34dfbf0a3dcaaabe",
-    "menu.js": "43049389924b063028a29aeef19cd0a30885c24af85bc26c27f0b751e2653467",
-    "lista-permitida.md": "5322db81b8eb853cb894118f6e6eae757c18d649daca44a07115f2be0644d39c"
+    "menu.js": "f1bcf019df9e1232e2deb9a2f321ca20dd924ce776edff543440a9bfd9e31922",
+    "lista-permitida.md": "cfdb673fa1b68be8faeee873b8d558ffbf5c62768007ba5a766e2cc47cc23ea5"
   },
   "results": [
     {
@@ -57,7 +57,7 @@
       "id": "T08",
       "status": "pass",
       "requirements": ["REQ-13"],
-      "detail": "Rollback local OK. sha256_antes=db95a6903b93b66e59e8c5fab3a40e86f0086f9c6b7b7adc0ead630d978ac831"
+      "detail": "Rollback local OK. sha256_antes=6601bc7c35087bea1bbac73e49743329de095c0497940b4695bb8c8bfe4cd08a"
     },
     {
       "id": "T09",

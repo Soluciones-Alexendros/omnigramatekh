@@ -1,0 +1,81 @@
+name: Bug Report
+description: Reportar un bug reproducible
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por reportar un bug. Completa la información abajo para ayudarnos a reproducirlo.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción
+      description: Descripción clara y concisa del bug
+      placeholder: Qué ocurre vs qué se esperaba
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducir
+      description: Pasos numerados para reproducir el comportamiento
+      placeholder: |
+        1. Ve a '...'
+        2. Haz clic en '...'
+        3. Observa el error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamiento esperado
+      description: Qué debería ocurrir
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Comportamiento actual
+      description: Qué ocurre realmente (incluye errores, logs, capturas)
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Entorno
+      description: Info del entorno donde ocurre
+      placeholder: |
+        - OS: Ubuntu 24.04 / macOS 14 / Windows 11
+        - Node: 20.x
+        - Python: 3.11
+        - Navegador: Firefox 128 / Chrome 128 (si aplica)
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Output relevante
+      description: Pega logs, stack traces, salida de comandos
+      render: shell
+      placeholder: $
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Verificación previa
+      options:
+        - label: He buscado issues duplicados
+          required: true
+        - label: He reproducido en la rama main actual
+          required: true
+        - label: No es un problema de seguridad (ver SECURITY.md)
+          required: true

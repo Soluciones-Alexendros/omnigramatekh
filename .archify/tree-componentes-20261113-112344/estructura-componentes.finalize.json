@@ -125,9 +125,7 @@
           {
             "name": "single_svg",
             "ok": true,
-            "details": [
-              "found 1 <svg> block(s)"
-            ]
+            "details": ["found 1 <svg> block(s)"]
           },
           {
             "name": "finite_svg",
@@ -167,9 +165,7 @@
           {
             "name": "legend_clearance",
             "ok": true,
-            "details": [
-              "no legend marker found"
-            ]
+            "details": ["no legend marker found"]
           }
         ],
         "composition": {

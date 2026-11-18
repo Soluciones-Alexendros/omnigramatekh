@@ -38,7 +38,12 @@
       "col": 0,
       "attributes": [
         { "name": "recurso_id", "type": "string", "key": "pk" },
-        { "name": "agente_id", "type": "string", "key": "fk", "references": "agente.agente_id" },
+        {
+          "name": "agente_id",
+          "type": "string",
+          "key": "fk",
+          "references": "agente.agente_id"
+        },
         { "name": "url_base", "type": "string" },
         { "name": "tipo_acceso", "type": "string" },
         { "name": "licencia", "type": "string" },
@@ -53,7 +58,12 @@
       "col": 0,
       "attributes": [
         { "name": "edicion_id", "type": "string", "key": "pk" },
-        { "name": "recurso_id", "type": "string", "key": "fk", "references": "recurso.recurso_id" },
+        {
+          "name": "recurso_id",
+          "type": "string",
+          "key": "fk",
+          "references": "recurso.recurso_id"
+        },
         { "name": "etiqueta_version", "type": "string" },
         { "name": "fecha_desde", "type": "date" },
         { "name": "fecha_hasta", "type": "date" },
@@ -68,7 +78,12 @@
       "col": 0,
       "attributes": [
         { "name": "captura_id", "type": "string", "key": "pk" },
-        { "name": "edicion_id", "type": "string", "key": "fk", "references": "edicion.edicion_id" },
+        {
+          "name": "edicion_id",
+          "type": "string",
+          "key": "fk",
+          "references": "edicion.edicion_id"
+        },
         { "name": "metodo", "type": "string" },
         { "name": "fecha_ejecucion", "type": "datetime" },
         { "name": "parametros", "type": "string" },

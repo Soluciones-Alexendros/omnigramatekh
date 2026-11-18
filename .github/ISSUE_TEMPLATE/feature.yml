@@ -1,0 +1,89 @@
+name: Feature Request
+description: Proponer una nueva característica o mejora
+title: "[FEAT] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por proponer una mejora. Describe el problema y la solución propuesta.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema / Motivación
+      description: Qué problema resuelve esta feature. ¿Por qué es necesaria?
+      placeholder: Actualmente no hay forma de...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solución propuesta
+      description: Describe la solución que tienes en mente
+      placeholder: Añadir un nuevo comando/endpoint/componente que...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas
+      description: Otras soluciones que evaluaste y por qué las descartaste
+      placeholder: Se consideró X pero se descartó porque...
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Criterios de aceptación
+      description: Lista de condiciones que deben cumplirse para considerar la feature "done"
+      placeholder: |
+        - [ ] Criterio 1
+        - [ ] Criterio 2
+        - [ ] Tests pasan
+        - [ ] Docs actualizadas
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Breaking changes
+      options:
+        - label: Esta feature introduce breaking changes
+          required: false
+    validations:
+      required: false
+
+  - type: textarea
+    id: breaking-details
+    attributes:
+      label: Detalles breaking changes
+      description: Si marca breaking, describe qué rompe y plan de migración
+      placeholder: Rompe la API X porque... Migración:...
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto adicional
+      description: Referencias, mockups, issues relacionados, ADRs
+      placeholder: Relacionado con #123, ADR 0004, Figma link...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: He verificado que no existe issue duplicado
+          required: true
+        - label: Esta feature encaja en el scope del proyecto (ver ARCHITECTURE.md)
+          required: true
+        - label: Estoy dispuesto a implementarla o colaborar en la implementación
+          required: false

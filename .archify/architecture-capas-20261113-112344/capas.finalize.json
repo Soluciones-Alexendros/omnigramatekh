@@ -125,9 +125,7 @@
           {
             "name": "single_svg",
             "ok": true,
-            "details": [
-              "found 1 <svg> block(s)"
-            ]
+            "details": ["found 1 <svg> block(s)"]
           },
           {
             "name": "finite_svg",
@@ -226,10 +224,7 @@
                   "collectionIndex": 8,
                   "artifactIndex": 9
                 },
-                "point": [
-                  905,
-                  312
-                ]
+                "point": [905, 312]
               }
             ],
             "detours": [

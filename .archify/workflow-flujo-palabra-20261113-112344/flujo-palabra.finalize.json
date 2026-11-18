@@ -125,9 +125,7 @@
           {
             "name": "single_svg",
             "ok": true,
-            "details": [
-              "found 1 <svg> block(s)"
-            ]
+            "details": ["found 1 <svg> block(s)"]
           },
           {
             "name": "finite_svg",
@@ -311,10 +309,7 @@
                   "frameId": "lane-0",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -323,10 +318,7 @@
                   "frameId": "lane-1",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 96,
                   "spaceAboveNodesPx": 48,
                   "spaceBelowNodesPx": 6
@@ -335,10 +327,7 @@
                   "frameId": "lane-2",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -347,11 +336,7 @@
                   "frameId": "lane-3",
                   "heightPx": 150,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 96,
                   "spaceAboveNodesPx": 48,
                   "spaceBelowNodesPx": 6
@@ -360,11 +345,7 @@
                   "frameId": "lane-4",
                   "heightPx": 150,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -425,10 +406,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -437,10 +415,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -449,10 +424,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -461,11 +433,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -474,11 +442,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -539,10 +503,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -551,10 +512,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -563,10 +521,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -575,11 +530,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -588,11 +539,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -653,10 +600,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -665,10 +609,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -677,10 +618,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -689,11 +627,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -702,11 +636,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -820,10 +750,7 @@
                   "frameId": "lane-0",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -832,10 +759,7 @@
                   "frameId": "lane-1",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 96,
                   "spaceAboveNodesPx": 48,
                   "spaceBelowNodesPx": 6
@@ -844,10 +768,7 @@
                   "frameId": "lane-2",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -856,11 +777,7 @@
                   "frameId": "lane-3",
                   "heightPx": 150,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 96,
                   "spaceAboveNodesPx": 48,
                   "spaceBelowNodesPx": 6
@@ -869,11 +786,7 @@
                   "frameId": "lane-4",
                   "heightPx": 150,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -934,10 +847,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -946,10 +856,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -958,10 +865,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -970,11 +874,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -983,11 +883,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1048,10 +944,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1060,10 +953,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1072,10 +962,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1084,11 +971,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1097,11 +980,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1162,10 +1041,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1174,10 +1050,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1186,10 +1059,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1198,11 +1068,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1211,11 +1077,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1281,10 +1143,7 @@
                   "frameId": "lane-0",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -1293,10 +1152,7 @@
                   "frameId": "lane-1",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 96,
                   "spaceAboveNodesPx": 48,
                   "spaceBelowNodesPx": 6
@@ -1305,10 +1161,7 @@
                   "frameId": "lane-2",
                   "heightPx": 150,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -1317,11 +1170,7 @@
                   "frameId": "lane-3",
                   "heightPx": 150,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 96,
                   "spaceAboveNodesPx": 48,
                   "spaceBelowNodesPx": 6
@@ -1330,11 +1179,7 @@
                   "frameId": "lane-4",
                   "heightPx": 150,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 74,
                   "spaceAboveNodesPx": 59,
                   "spaceBelowNodesPx": 17
@@ -1395,10 +1240,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1407,10 +1249,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1419,10 +1258,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1431,11 +1267,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1444,11 +1276,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1509,10 +1337,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1521,10 +1346,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1533,10 +1355,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1545,11 +1364,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1558,11 +1373,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1623,10 +1434,7 @@
                   "frameId": "lane-0",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "conjunto",
-                    "cola"
-                  ],
+                  "nodeIds": ["conjunto", "cola"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1635,10 +1443,7 @@
                   "frameId": "lane-1",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "adaptadores",
-                    "candidatos"
-                  ],
+                  "nodeIds": ["adaptadores", "candidatos"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1647,10 +1452,7 @@
                   "frameId": "lane-2",
                   "heightPx": 159,
                   "nodeCount": 2,
-                  "nodeIds": [
-                    "resolucion",
-                    "almacen"
-                  ],
+                  "nodeIds": ["resolucion", "almacen"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18
@@ -1659,11 +1461,7 @@
                   "frameId": "lane-3",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "rechazo",
-                    "gates",
-                    "revision"
-                  ],
+                  "nodeIds": ["rechazo", "gates", "revision"],
                   "nodeSpanPx": 102,
                   "spaceAboveNodesPx": 51,
                   "spaceBelowNodesPx": 6
@@ -1672,11 +1470,7 @@
                   "frameId": "lane-4",
                   "heightPx": 159,
                   "nodeCount": 3,
-                  "nodeIds": [
-                    "resolver",
-                    "conflicto",
-                    "proyecciones"
-                  ],
+                  "nodeIds": ["resolver", "conflicto", "proyecciones"],
                   "nodeSpanPx": 78,
                   "spaceAboveNodesPx": 63,
                   "spaceBelowNodesPx": 18

@@ -13,14 +13,8 @@
       "type": "external",
       "label": "Visitante",
       "sublabel": "navegador local",
-      "pos": [
-        40,
-        216
-      ],
-      "size": [
-        148,
-        64
-      ]
+      "pos": [40, 216],
+      "size": [148, 64]
     },
     {
       "id": "portada",
@@ -28,68 +22,39 @@
       "label": "index.html",
       "sublabel": "portada estática",
       "tag": "sin backend",
-      "pos": [
-        395,
-        210
-      ],
-      "size": [
-        190,
-        76
-      ]
+      "pos": [395, 210],
+      "size": [190, 76]
     },
     {
       "id": "tokens",
       "type": "frontend",
       "label": "tokens.css",
       "sublabel": "tokens v0",
-      "pos": [
-        320,
-        40
-      ],
-      "size": [
-        160,
-        60
-      ]
+      "pos": [320, 40],
+      "size": [160, 60]
     },
     {
       "id": "estilos",
       "type": "frontend",
       "label": "sitio.css",
       "sublabel": "componentes",
-      "pos": [
-        500,
-        40
-      ],
-      "size": [
-        160,
-        60
-      ]
+      "pos": [500, 40],
+      "size": [160, 60]
     },
     {
       "id": "menu",
       "type": "frontend",
       "label": "menu.js",
       "sublabel": "menú móvil",
-      "pos": [
-        410,
-        406
-      ],
-      "size": [
-        160,
-        60
-      ]
+      "pos": [410, 406],
+      "size": [160, 60]
     }
   ],
   "boundaries": [
     {
       "kind": "region",
       "label": "sitio/ · HTML estático aislado",
-      "wraps": [
-        "portada",
-        "tokens",
-        "estilos",
-        "menu"
-      ]
+      "wraps": ["portada", "tokens", "estilos", "menu"]
     }
   ],
   "connections": [
