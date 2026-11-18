@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
@@ -55,11 +55,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install bash
-        run: sudo apt-get update && sudo apt-get install -y bash
-
-      - name: Validate product structure
-        run: bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .
+      - name: Validate required P1 files exist
+        run: |
+          required_files=(
+            "LICENSE"
+            "CHANGELOG.md"
+            "SECURITY.md"
+            "CONTRIBUTING.md"
+            "AGENTS.md"
+            "ARCHITECTURE.md"
+            "Makefile"
+            ".env.example"
+            ".github/workflows/ci.yml"
+            ".github/CODEOWNERS"
+            ".github/renovate.json"
+            ".github/PULL_REQUEST_TEMPLATE.md"
+            ".github/ISSUE_TEMPLATE/bug.yml"
+            ".github/ISSUE_TEMPLATE/feature.yml"
+            "docs/architecture"
+            "docs/guides"
+            "docs/runbooks"
+            "docs/README.md"
+          )
+          missing=0
+          for f in "${required_files[@]}"; do
+            if [[ ! -e "$f" ]]; then
+              echo "FALTA: $f"
+              missing=1
+            fi
+          done
+          # Check meta-section in README.md
+          if ! grep -q "### Propósito de este documento" README.md; then
+            echo "FALTA meta-sección en README.md"
+            missing=1
+          fi
+          if [[ $missing -eq 1 ]]; then
+            exit 1
+          fi
+          echo "✅ Estructura P1 OK"
 
   smoke:
     name: Validate LinkML Tools
@@ -72,6 +105,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Install LinkML
+        run: |
+          python -m pip install --upgrade pip
+          pip install linkml
 
       - name: Validate LinkML (smoke)
         run: bash herramientas/linkml/scripts/tests/smoke_sh.sh
@@ -86,7 +124,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
