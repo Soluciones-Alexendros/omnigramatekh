@@ -32,10 +32,16 @@ if [[ $count -eq 0 ]]; then
 fi
 
 if [[ -f "$SCRIPT_DIR/bootstrap_arch.sh" ]]; then
-  if bash "$SCRIPT_DIR/bootstrap_arch.sh" --dry-run >/dev/null 2>&1; then
-    ok "bootstrap_arch.sh --dry-run exit 0"
+  # bootstrap_arch.sh es específico de Arch Linux; saltar en CI no-Arch
+  OS_ID="$(grep -E '^ID=' /etc/os-release | cut -d= -f2 | tr -d '"' 2>/dev/null || echo "unknown")"
+  if [[ "$OS_ID" == "arch" || "$OS_ID" == "archlinux" ]]; then
+    if bash "$SCRIPT_DIR/bootstrap_arch.sh" --dry-run >/dev/null 2>&1; then
+      ok "bootstrap_arch.sh --dry-run exit 0"
+    else
+      bad "bootstrap_arch.sh --dry-run exit $?"
+    fi
   else
-    bad "bootstrap_arch.sh --dry-run exit $?"
+    ok "bootstrap_arch.sh --dry-run skipped (non-Arch: $OS_ID)"
   fi
 else
   bad "falta bootstrap_arch.sh"
