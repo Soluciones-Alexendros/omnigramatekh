@@ -19,10 +19,14 @@ Solo piezas de `contenido/lista-permitida.md`. CASTIGO, contacto, legales y enla
 ## Pruebas
 
 ```bash
-python3 pruebas/run_checks.py
+npm test                    # desde la raíz: checks del sitio + menú
+npm run test:sitio          # solo T01–T09 (Python)
+npm run test:js             # solo comportamiento de menu.js (Node)
 ```
 
-La matriz REQ → prueba está en `pruebas/matriz.md`. La evidencia de la última ejecución queda en `pruebas/evidencia/`.
+La matriz REQ → prueba está en `pruebas/matriz.md`. La evidencia de la última
+ejecución queda en `pruebas/evidencia/latest.json` (estado local, no versionado);
+solo se versionan las corridas curadas.
 
 ## Límites
 

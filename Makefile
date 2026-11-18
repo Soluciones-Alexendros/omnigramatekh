@@ -1,61 +1,57 @@
 # Makefile — omnigramatekh
-# Targets estándar + proyecto
+# Gates locales del repo. Todo target debe poder fallar: sin `|| true`.
 
 SHELL := /bin/bash
 .SHELLFLAGS := -euo pipefail -c
 
-# Variables
+# Rutas relativas al repo: nada depende del HOME del operador.
 PROJECT_ROOT := $(shell pwd)
-CHECK_STRUCTURE := bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh
+CHECK_STRUCTURE := bash scripts/check-structure.sh
 
-.PHONY: help test lint validate validate-structure clean linkml-validate docs-build
+.DEFAULT_GOAL := help
 
-# Default target
+.PHONY: help test lint lint-fix validate validate-structure validate-linkml validate-docs clean
+
 help:
 	@echo "Targets disponibles:"
-	@echo "  make test              - Ejecutar tests (npm test)"
-	@echo "  make lint              - Lint/format (prettier --check)"
-	@echo "  make validate          - Validación completa (lint + test + estructura)"
-	@echo "  make validate-structure - Validar estructura P1 (check-product-structure.sh)"
-	@echo "  make clean             - Limpiar artefactos temporales"
-	@echo "  make linkml-validate   - Validar herramientas LinkML (smoke test)"
-	@echo "  make docs-build        - Validar documentación (prettier check)"
+	@echo "  make test              - Tests locales (npm test: checks T01–T09 del sitio)"
+	@echo "  make lint              - Formato Prettier (falla si hay diferencias)"
+	@echo "  make lint-fix          - Reescribe el formato con Prettier"
+	@echo "  make validate          - Gate completo: lint + test + estructura"
+	@echo "  make validate-structure- Estructura P1 (scripts/check-structure.sh, perfil P1)"
+	@echo "  make validate-linkml   - Smoke de las herramientas LinkML"
+	@echo "  make validate-docs     - Formato de la documentación"
+	@echo "  make clean             - Limpia cachés locales (no borra entregables)"
 
-# Tests
+# Tests: exit 1 si alguna prueba T01–T09 falla; informa de las manuales.
 test:
 	npm test
 
-# Lint y formato
 lint:
 	npx prettier --check .
 
-# Validación completa
-validate: lint test validate-structure
-	@echo "✅ Validación completa OK"
+lint-fix:
+	npx prettier --write .
 
-# Validar estructura P1
+validate: lint test validate-structure validate-linkml
+	@echo "✅ Gate completo OK (lint + test + estructura P1 + smoke LinkML)"
+
 validate-structure:
-	@echo "🔍 Validando estructura P1..."
-	@$(CHECK_STRUCTURE) .
-	@echo "✅ Estructura P1 OK"
+	@$(CHECK_STRUCTURE) . --profile P1
 
-# Limpiar
+validate-linkml:
+	@bash herramientas/linkml/scripts/tests/smoke_sh.sh
+
+validate-docs:
+	npx prettier --check "documentacion/**/*.md" "docs/**/*.md" \
+		README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md AGENTS.md ARCHITECTURE.md
+
+# Solo cachés y residuos regenerables. Los diagramas de .archify/ son
+# entregables versionados: no se tocan aquí.
 clean:
-	@echo "🧹 Limpiando..."
-	rm -rf node_modules/.cache 2>/dev/null || true
-	rm -rf .archify/*.html 2>/dev/null || true
-	find . -name "*.pyc" -delete 2>/dev/null || true
-	find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
-	@echo "✅ Limpieza completada"
-
-# Validar herramientas LinkML
-linkml-validate:
-	@echo "🔍 Validando herramientas LinkML..."
-	bash herramientas/linkml/scripts/tests/smoke_sh.sh
-	@echo "✅ LinkML smoke test OK"
-
-# Validar documentación
-docs-build:
-	@echo "🔍 Validando documentación..."
-	npx prettier --check documentacion/ docs/ README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md AGENTS.md ARCHITECTURE.md 2>/dev/null || true
-	@echo "✅ Documentación OK"
+	@echo "🧹 Limpiando cachés..."
+	rm -rf node_modules/.cache
+	find . -name "__pycache__" -type d -prune -exec rm -rf {} +
+	find . -name "*.pyc" -delete
+	rm -f sitio/pruebas/evidencia/run-*.json
+	@echo "✅ Limpieza completada (entregables intactos)"

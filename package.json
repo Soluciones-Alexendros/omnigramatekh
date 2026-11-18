@@ -4,7 +4,9 @@
   "private": true,
   "description": "Vista previa local experimental y planos Archify de OmniGramatekh",
   "scripts": {
-    "test": "python3 sitio/pruebas/run_checks.py",
+    "test": "npm run test:sitio && npm run test:js",
+    "test:sitio": "python3 sitio/pruebas/run_checks.py",
+    "test:js": "node --test sitio/pruebas/test_menu.js",
     "prepare": "husky"
   },
   "devDependencies": {

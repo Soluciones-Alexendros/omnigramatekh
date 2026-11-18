@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
           cache: "npm"
@@ -34,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
           cache: "npm"
@@ -53,56 +53,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Validate required P1 files exist
-        run: |
-          required_files=(
-            "LICENSE"
-            "CHANGELOG.md"
-            "SECURITY.md"
-            "CONTRIBUTING.md"
-            "AGENTS.md"
-            "ARCHITECTURE.md"
-            "Makefile"
-            ".env.example"
-            ".github/workflows/ci.yml"
-            ".github/CODEOWNERS"
-            ".github/renovate.json"
-            ".github/PULL_REQUEST_TEMPLATE.md"
-            ".github/ISSUE_TEMPLATE/bug.yml"
-            ".github/ISSUE_TEMPLATE/feature.yml"
-            "docs/architecture"
-            "docs/guides"
-            "docs/runbooks"
-            "docs/README.md"
-          )
-          missing=0
-          for f in "${required_files[@]}"; do
-            if [[ ! -e "$f" ]]; then
-              echo "FALTA: $f"
-              missing=1
-            fi
-          done
-          # Check meta-section in README.md
-          if ! grep -q "### Propósito de este documento" README.md; then
-            echo "FALTA meta-sección en README.md"
-            missing=1
-          fi
-          if [[ $missing -eq 1 ]]; then
-            exit 1
-          fi
-          echo "✅ Estructura P1 OK"
+      - name: Validate P1 structure
+        run: bash scripts/check-structure.sh . --profile P1
 
   smoke:
     name: Validate LinkML Tools
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -119,10 +83,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
           cache: "npm"
@@ -131,7 +95,7 @@ jobs:
         run: npm ci
 
       - name: Check docs format
-        run: npx prettier --check documentacion/ docs/ README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md AGENTS.md ARCHITECTURE.md 2>/dev/null || true
+        run: make validate-docs
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

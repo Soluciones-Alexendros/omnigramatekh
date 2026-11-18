@@ -31,14 +31,15 @@ omnigramatekh/
 
 ## Verificación por componente
 
-| Componente          | Stack          | Comando de validación                                                                        |
-| ------------------- | -------------- | -------------------------------------------------------------------------------------------- |
-| Sitio estático      | HTML/CSS/JS    | `cd sitio && python3 -m http.server 8765` (manual)                                           |
-| Herramientas LinkML | Python/Node    | `bash herramientas/linkml/scripts/tests/smoke_sh.sh`                                         |
-| Documentación       | Markdown       | `npx prettier --check documentacion/`                                                        |
-| Estructura P1       | Canon flota    | `bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .` |
-| CI/CD               | GitHub Actions | `actionlint .github/workflows/ci.yml`                                                        |
-| General             | Node           | `npm test` / `make validate`                                                                 |
+| Componente          | Stack          | Comando de validación                                |
+| ------------------- | -------------- | ---------------------------------------------------- |
+| Sitio estático      | HTML/CSS/JS    | `cd sitio && python3 -m http.server 8765` (manual)   |
+| Sitio: checks       | Python + Node  | `npm test` (T01–T09 + 8 pruebas de `menu.js`)        |
+| Herramientas LinkML | Python/Node    | `bash herramientas/linkml/scripts/tests/smoke_sh.sh` |
+| Documentación       | Markdown       | `make validate-docs`                                 |
+| Estructura P1       | Canon flota    | `bash scripts/check-structure.sh . --profile P1`     |
+| CI/CD               | GitHub Actions | `actionlint .github/workflows/ci.yml`                |
+| General             | Node           | `npm test` / `make validate`                         |
 
 ## Reglas de Git
 
@@ -76,15 +77,32 @@ Los skills se cargan desde `~/.pi/agent/skills/`. Principales:
 ## Comandos Útiles
 
 ```bash
-# Estado del repo (project-status)
-python /home/alexendros/.pi/agent/skills/project-status/scripts/inicio_plan.py . --out /tmp/status
-
-# Validar estructura P1
-bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .
-
-# Lint + test + validate
+# Gate completo (lint + tests + estructura P1 + smoke LinkML)
 make validate
+
+# Validar estructura P1 (script vendorizado: sin rutas del HOME)
+bash scripts/check-structure.sh . --profile P1
+
+# Tests del sitio y del menú
+npm test              # ambas suites
+npm run test:sitio    # T01–T09
+npm run test:js       # 8 pruebas de comportamiento de menu.js
+
+# Formato
+make lint             # comprueba
+make lint-fix         # reescribe
 
 # Smoke LinkML
 bash herramientas/linkml/scripts/tests/smoke_sh.sh
 ```
+
+## Política de artefactos
+
+- `.archify/`: se versionan el `.html` y su `candidate.json`. Los recibos
+  (`*.delivery.json`, `*.finalize*.json`, `*.browser-check.json`) y los
+  directorios `review-*/` son regenerables, contienen rutas absolutas y no se
+  versionan.
+- `sitio/pruebas/evidencia/`: solo se versionan las corridas curadas
+  (`run-20261113T*.json`); `latest.json` y las corridas nuevas son estado local.
+- `docs/` es documentación de uso; `documentacion/` es el canon técnico (ADRs y
+  especificaciones). Si discrepan, manda `documentacion/`.

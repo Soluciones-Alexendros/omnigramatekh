@@ -17,11 +17,41 @@ Describe la arquitectura **actual** del repositorio (v0.1.0, experimental): cuat
 │                      omnigramatekh                          │
 ├─────────────┬─────────────┬─────────────┬───────────────────┤
 │   sitio/    │ herramientas│ documentacion│     .archify/    │
-│  (estático) │  (LinkML)   │  (ADRs,specs)│   (diagramas)    │
+│  (estático) │  (LinkML)   │  (canon)    │   (diagramas)    │
 └─────────────┴─────────────┴─────────────┴───────────────────┘
 ```
 
 Cada pilar es **aislado**: no hay acoplamiento en tiempo de ejecución, ni dependencias compartidas, ni build pipeline unificado.
+
+## Documentación: dos árboles con propósitos distintos
+
+| Árbol            | Contiene                                       | Autoridad        |
+| ---------------- | ---------------------------------------------- | ---------------- |
+| `docs/`          | Guías de uso, arquitectura explicada, runbooks | Deriva del canon |
+| `documentacion/` | ADRs y especificaciones del modelo             | **Canon**: manda |
+
+Si una guía de `docs/` contradice un ADR de `documentacion/`, la guía es la que
+está mal. `docs/` existe porque el perfil P1 lo exige como punto de entrada; no
+sustituye al canon.
+
+## Idioma
+
+El repo escribe en español, con una excepción declarada: `herramientas/linkml/`
+(`SKILL.md` y sus `references/`) está en inglés, siguiendo la convención del
+ecosistema LinkML y para reutilizar literalmente su terminología. La
+especificación del modelo sí está en español
+(`documentacion/linkml/SPEC-modelo-linkml.md`).
+
+## Artefactos versionados
+
+- `.archify/`: se versionan el `.html` (entregable) y su `candidate.json`
+  (fuente). Los recibos y pasos intermedios son regenerables y contienen rutas
+  absolutas del equipo: quedan fuera del control de versiones.
+- `sitio/pruebas/evidencia/`: solo corridas curadas; `latest.json` es estado
+  local.
+- El gate de estructura es `scripts/check-structure.sh`, copia vendorizada del
+  validador de la flota, para que CI y `make validate` ejecuten el mismo código
+  sin depender de rutas del `HOME`.
 
 ---
 

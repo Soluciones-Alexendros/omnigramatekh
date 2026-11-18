@@ -7,6 +7,7 @@ import hashlib
 import json
 import re
 import shutil
+import sys
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -73,25 +74,19 @@ def check_t01(html: str, allow: str) -> dict:
 
 
 def check_t02(html: str) -> dict:
-    anchors = ["#proyecto", "#metodo", "#documentacion", "#estado", "#inicio", "#contenido"]
-    missing_ids = []
-    for a in anchors:
-        aid = a.lstrip("#")
-        if f'id="{aid}"' not in html and f"id='{aid}'" not in html:
-            # href targets: inicio/contenido/proyecto etc.
-            if f'id="{aid}"' not in html:
-                missing_ids.append(aid)
-    # Ensure nav hrefs resolve to ids
-    for href in ("proyecto", "metodo", "documentacion", "estado"):
-        if f'id="{href}"' not in html:
-            missing_ids.append(href)
+    required_ids = {"inicio", "contenido", "proyecto", "metodo", "documentacion", "estado"}
+    present_ids = set(re.findall(r'id="([^"]+)"', html))
+    missing_ids = sorted(required_ids - present_ids)
+
     external = re.findall(r"""(?:href|src)=["']https?://[^"']+["']""", html, re.I)
-    # Cards must not contain links inside documentation section — heuristic: badge En preparación near cards
+
+    # Las tarjetas de documentación son "En preparación": no deben enlazar.
     card_block = html.split('id="documentacion"', 1)[-1].split('id="estado"', 1)[0]
     card_links = re.findall(r"<a\b", card_block, re.I)
+
     issues = []
     if missing_ids:
-        issues.append(f"missing_ids={sorted(set(missing_ids))}")
+        issues.append(f"missing_ids={missing_ids}")
     if external:
         issues.append(f"external={external}")
     if card_links:
@@ -179,30 +174,30 @@ def check_t07() -> dict:
 
 
 def check_t08() -> dict:
+    """Comprueba que restaurar la copia de un artefacto lo deja idéntico."""
+    marker = HTML
+    original = marker.read_text(encoding="utf-8")
+    digest_before = sha256(marker)
     with tempfile.TemporaryDirectory(prefix="sitio-rollback-") as tmp:
-        tmp_path = Path(tmp)
-        backup = tmp_path / "backup"
-        shutil.copytree(ROOT, backup, ignore=shutil.ignore_patterns("pruebas/evidencia"))
-        marker = ROOT / "index.html"
-        original = marker.read_text(encoding="utf-8")
-        digest_before = sha256(marker)
+        backup = Path(tmp) / "index.html"
+        shutil.copy2(marker, backup)
         try:
             marker.write_text(original + "\n<!-- rollback-probe -->\n", encoding="utf-8")
             digest_changed = sha256(marker)
-            shutil.copy2(backup / "index.html", marker)
+            shutil.copy2(backup, marker)
             digest_after = sha256(marker)
         finally:
             if marker.read_text(encoding="utf-8") != original:
                 marker.write_text(original, encoding="utf-8")
-        ok = digest_before == digest_after and digest_changed != digest_before
-        if not ok:
-            return result("T08", "fail", "rollback local no restauró el artefacto", ["REQ-13"])
-        return result(
-            "T08",
-            "pass",
-            f"Rollback local OK. sha256_antes={digest_before}",
-            ["REQ-13"],
-        )
+    ok = digest_before == digest_after and digest_changed != digest_before
+    if not ok:
+        return result("T08", "fail", "el rollback local no restauró el artefacto", ["REQ-13"])
+    return result(
+        "T08",
+        "pass",
+        f"Rollback local OK. sha256_antes={digest_before}",
+        ["REQ-13"],
+    )
 
 
 def check_t09(tokens: str) -> dict:
@@ -245,6 +240,26 @@ def main() -> int:
 
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+    # El gate no promociona lo no verificado: separa lo que bloquea de lo que
+    # queda pendiente de comprobación manual o de datos.
+    blocking = [r for r in results if r["status"] == "fail"]
+    unverified = [
+        {"id": r["id"], "status": r["status"], "reason": r["detail"]}
+        for r in results
+        if r["status"] not in ("pass", "fail")
+    ]
+    gate = {
+        "status": "pass" if not blocking else "fail",
+        "blocking": [r["id"] for r in blocking],
+        "unverified": unverified,
+        "counts": {
+            "pass": sum(1 for r in results if r["status"] == "pass"),
+            "fail": len(blocking),
+            "unverified": len(unverified),
+        },
+    }
+
     payload = {
         "run_id": f"sitio-local-{stamp}",
         "phase": "VALIDATE",
@@ -257,6 +272,7 @@ def main() -> int:
             "menu.js": sha256(JS),
             "lista-permitida.md": sha256(ALLOW),
         },
+        "gate": gate,
         "results": results,
     }
     out = EVIDENCE_DIR / f"run-{stamp}.json"
@@ -264,8 +280,17 @@ def main() -> int:
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     latest.write_text(out.read_text(encoding="utf-8"), encoding="utf-8")
 
-    blocking = [r for r in results if r["status"] == "fail"]
     print(json.dumps(payload, ensure_ascii=False, indent=2))
+    counts = gate["counts"]
+    print(
+        f"\ngate: {gate['status']} · {counts['pass']} pass · "
+        f"{counts['fail']} fail · {counts['unverified']} sin verificar",
+        file=sys.stderr,
+    )
+    if unverified:
+        detail = ", ".join(f"{u['id']}={u['status']}" for u in unverified)
+        print(f"pendiente de verificación: {detail} (ver sitio/pruebas/matriz.md)", file=sys.stderr)
+
     return 1 if blocking else 0
 
 

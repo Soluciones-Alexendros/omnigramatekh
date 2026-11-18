@@ -3,47 +3,43 @@
   "extends": [
     "config:recommended",
     ":dependencyDashboard",
-    ":automergePatch",
-    ":automergeMinor",
     ":label(dependencies)",
     ":prHourlyLimit2"
   ],
+  "description": [
+    "Sin automerge: toda actualización pasa por revisión del operador, igual que el resto de cambios del repo.",
+    "Se agrupa por gestor y por tipo para reducir el número de PRs sin perder el control."
+  ],
   "packageRules": [
     {
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["patch", "minor"],
-      "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "groupName": "npm devDependencies"
     },
     {
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["major"],
-      "automerge": false,
-      "groupName": "major-updates"
+      "groupName": "major-updates",
+      "addLabels": ["major-update"]
     },
     {
-      "matchManagers": ["github-actions"],
-      "groupName": "github-actions",
-      "automerge": true,
-      "automergeType": "pr"
-    },
-    {
-      "matchManagers": ["npm"],
-      "matchDepNames": ["prettier", "eslint", "@types/*"],
-      "groupName": "dev-tools",
-      "automerge": true
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "patch-minor"
     }
   ],
+  "automerge": false,
   "schedule": ["after 2am on monday"],
   "timezone": "Europe/Madrid",
-  "prConcurrentLimit": 5,
+  "prConcurrentLimit": 3,
   "prHourlyLimit": 2,
   "branchPrefix": "renovate/",
   "commitMessagePrefix": "chore(deps):",
-  "commitMessageAction": "upgrade",
   "rebaseWhen": "conflicted",
   "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate Dependency Dashboard",
-  "dependencyDashboardApproval": false
+  "dependencyDashboardTitle": "Renovate Dependency Dashboard"
 }

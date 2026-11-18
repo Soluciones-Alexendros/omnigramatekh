@@ -6,9 +6,8 @@ compatibility: "cursor, pi"
 allowed-tools: "Read, Grep, Glob, Bash, Write"
 metadata:
   author: Soluciones-Alexendros
-  version: "0.1.0"
-  domain: data
-  type: orchestrator
+  version: "0.1.1"
+  scope: repo-local
   language: en
   keywords: "linkml, schema, modelado de datos, validar datos, yaml schema, gen-project, pydantic, json schema, json-ld"
 ---
@@ -108,9 +107,10 @@ promote `not_run` to PASS.
 
 ## Where this lives
 
-This is the project-local skill for the OmniGramatekh lexical model. The
-authoring and validation toolchain, references and example assets live under
-`herramientas/linkml/`; the model specification is
+This is the project-local skill for the OmniGramatekh lexical model. It is not
+part of the `machineroom` skill catalog: it carries `scope: repo-local` instead
+of a catalog domain. The authoring and validation toolchain, references and
+example assets live under `herramientas/linkml/`; the model specification is
 `documentacion/linkml/SPEC-modelo-linkml.md`; keeping it out of the static site
 is ADR 0001, and its incorporation here is ADR 0002.
 

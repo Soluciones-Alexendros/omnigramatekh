@@ -1,0 +1,15 @@
+# Artefactos generados: no se formatean, se regeneran.
+.archify/
+
+# Evidencia de ejecuciones locales.
+sitio/pruebas/evidencia/
+
+# Dependencias y cachés.
+node_modules/
+__pycache__/
+
+# Ficheros internos generados por Husky.
+.husky/_/
+
+# Lockfile: lo mantiene npm, no Prettier.
+package-lock.json
