@@ -1,0 +1,47 @@
+name: OpenSSF Scorecard
+
+# Auditoría semanal del repositorio (no del producto): ramas protegidas, pins,
+# permisos de workflows, dependencias vulnerables, licencia, revisión de código.
+# Complementa a `gitleaks` (secretos) y `zizmor` (workflows) del CI principal.
+
+on:
+  schedule:
+    - cron: "17 3 * * 1" # lunes 03:17 UTC
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# read-all es el mínimo de GitHub para este flujo; los write se conceden por job.
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      security-events: write # subir SARIF a code scanning
+      id-token: write # publicar resultados en la API de OpenSSF
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Scorecard
+        uses: ossf/scorecard-action@4eaacf0543bb3f2c246792bd56e8cdeffafb205a # v2.4.3
+        with:
+          results_file: scorecard.sarif
+          results_format: sarif
+          # Solo lectura: no publicamos en la API pública de OpenSSF.
+          publish_results: false
+
+      - name: Upload SARIF to code scanning
+        uses: github/codeql-action/upload-sarif@9418214df1f2c4b8128c770156c409013b07d6b9 # v3
+        with:
+          sarif_file: scorecard.sarif

@@ -10,7 +10,7 @@ CHECK_STRUCTURE := bash scripts/check-structure.sh
 
 .DEFAULT_GOAL := help
 
-.PHONY: help setup test test-browser lint lint-fix validate validate-structure validate-linkml validate-docs validate-links clean
+.PHONY: help setup test test-browser lint lint-fix validate validate-structure validate-linkml validate-docs validate-links validate-workflows clean
 
 help:
 	@echo "Targets disponibles:"
@@ -24,6 +24,7 @@ help:
 	@echo "  make validate-linkml   - Smoke de las herramientas LinkML"
 	@echo "  make validate-docs     - Formato de la documentación"
 	@echo "  make validate-links    - Enlaces relativos de la documentación"
+	@echo "  make validate-workflows- actionlint + zizmor sobre .github/workflows"
 	@echo "  make clean             - Limpia cachés locales (no borra entregables)"
 
 # Preparación de un clon nuevo: dependencias exactas del lockfile + hooks. 
@@ -68,6 +69,14 @@ validate-docs:
 
 validate-links:
 	python3 scripts/check_links.py
+
+# Endurecimiento de workflows: sintaxis (actionlint) y auditoría de seguridad
+# (zizmor). Requiere actionlint y zizmor en PATH.
+validate-workflows:
+	@command -v actionlint >/dev/null 2>&1 || { echo "falta actionlint" >&2; exit 3; }
+	@command -v zizmor >/dev/null 2>&1 || { echo "falta zizmor" >&2; exit 3; }
+	actionlint .github/workflows/*.yml
+	zizmor --persona=regular .github/workflows/
 
 # Solo cachés y residuos regenerables. Los diagramas de .archify/ son
 # entregables versionados: no se tocan aquí.
