@@ -300,16 +300,21 @@ def main() -> int:
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     latest.write_text(out.read_text(encoding="utf-8"), encoding="utf-8")
 
-    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    # La evidencia completa (incluye el detalle de cada comprobación) se escribe
+    # en el JSON. Por stdout/stderr solo se emite el estado por prueba: nunca se
+    # vuelca el detalle completo, que podría arrastrar contenido sensible.
     counts = gate["counts"]
+    print(f"sitio/pruebas: evidencia escrita en {out.relative_to(REPO)}")
+    for r in results:
+        print(f"  {r['id']}: {r['status']}")
     print(
         f"\ngate: {gate['status']} · {counts['pass']} pass · "
         f"{counts['fail']} fail · {counts['unverified']} sin verificar",
         file=sys.stderr,
     )
     if unverified:
-        detail = ", ".join(f"{u['id']}={u['status']}" for u in unverified)
-        print(f"pendiente de verificación: {detail} (ver sitio/pruebas/matriz.md)", file=sys.stderr)
+        ids = ", ".join(f"{u['id']}={u['status']}" for u in unverified)
+        print(f"pendiente de verificación: {ids} (ver sitio/pruebas/matriz.md)", file=sys.stderr)
 
     return 1 if blocking else 0
 
