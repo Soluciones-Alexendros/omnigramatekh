@@ -10,12 +10,13 @@ CHECK_STRUCTURE := bash scripts/check-structure.sh
 
 .DEFAULT_GOAL := help
 
-.PHONY: help setup test lint lint-fix validate validate-structure validate-linkml validate-docs validate-links clean
+.PHONY: help setup test test-browser lint lint-fix validate validate-structure validate-linkml validate-docs validate-links clean
 
 help:
 	@echo "Targets disponibles:"
 	@echo "  make setup             - Prepara un clon nuevo (npm ci + hooks de Husky)"
 	@echo "  make test              - Tests locales (npm test: checks T01–T09 del sitio)"
+	@echo "  make test-browser      - Gates en Chromium (a11y+contraste, reflow, Lighthouse)"
 	@echo "  make lint              - Formato Prettier (falla si hay diferencias)"
 	@echo "  make lint-fix          - Reescribe el formato con Prettier"
 	@echo "  make validate          - Gate completo: lint + test + estructura"
@@ -45,6 +46,11 @@ lint-fix:
 
 validate: lint test validate-structure validate-linkml validate-docs validate-links
 	@echo "✅ Gate completo OK (lint + test + estructura P1 + smoke LinkML + docs + enlaces)"
+
+# Gates en navegador real (Chromium): accesibilidad con contraste, reflow y
+# presupuestos de rendimiento. Requiere `npx playwright install chromium`.
+test-browser:
+	npm run test:browser
 
 validate-structure:
 	@$(CHECK_STRUCTURE) . --profile P1
