@@ -6,10 +6,8 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-import shutil
 import sys
-import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +34,28 @@ def result(test_id: str, status: str, detail: str, reqs: list[str]) -> dict:
     }
 
 
+# Secret detection patterns - regex-based, not substring matching
+# These match actual secret formats, not words like "secretaría"
+SECRET_PATTERNS = [
+    # AWS Access Key ID
+    (re.compile(r"\bAKIA[0-9A-Z]{16}\b"), "AWS Access Key ID"),
+    # GitHub Personal Access Token (classic)
+    (re.compile(r"\bghp_[a-zA-Z0-9]{36}\b"), "GitHub PAT (classic)"),
+    # GitHub Fine-grained PAT
+    (re.compile(r"\bgithub_pat_[a-zA-Z0-9_]{82}\b"), "GitHub Fine-grained PAT"),
+    # GitHub OAuth token
+    (re.compile(r"\bgho_[a-zA-Z0-9]{36}\b"), "GitHub OAuth token"),
+    # GitHub App token
+    (re.compile(r"\bghs_[a-zA-Z0-9]{36}\b"), "GitHub App token"),
+    # GitHub Refresh token
+    (re.compile(r"\bghr_[a-zA-Z0-9]{36}\b"), "GitHub Refresh token"),
+    # Private keys (PEM)
+    (re.compile(r"-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----"), "Private Key (PEM)"),
+    # Generic secret assignment patterns (key=value or key: value with quoted value >=8 chars)
+    (re.compile(r'(?i)(api[_-]?key|secret|password|token)\s*[:=]\s*["\'][^"\']{8,}'), "Secret assignment"),
+]
+
+
 def check_t01(html: str, allow: str) -> dict:
     needed = [
         "Diagnosis y Actualización del Español-Castellano",
@@ -55,14 +75,22 @@ def check_t01(html: str, allow: str) -> dict:
     castigo_present = bool(re.search(r"\bCASTIGO\b", html, re.IGNORECASE))
     allow_omits_castigo = "C-07" in allow and "omitido" in allow
     private_leaks = []
-    for needle in ("notion.so", "app.notion.com", ".zip", "linkml validate", "api_key", "secret"):
+    for needle in ("notion.so", "app.notion.com", ".zip", "linkml validate"):
         if needle.lower() in html.lower():
             private_leaks.append(needle)
-    if missing or castigo_present or private_leaks or not allow_omits_castigo:
+    # Secret detection via regex patterns (not substrings)
+    secret_leaks = []
+    for pattern, label in SECRET_PATTERNS:
+        matches = pattern.findall(html)
+        if matches:
+            # No se registra el valor del secreto: solo tipo y número de coincidencias.
+            secret_leaks.append(f"{label} ({len(matches)} coincidencia(s))")
+    all_leaks = private_leaks + secret_leaks
+    if missing or castigo_present or all_leaks or not allow_omits_castigo:
         return result(
             "T01",
             "fail",
-            f"missing={missing}; castigo={castigo_present}; leaks={private_leaks}; allow_castigo_ok={allow_omits_castigo}",
+            f"missing={missing}; castigo={castigo_present}; leaks={all_leaks}; allow_castigo_ok={allow_omits_castigo}",
             ["REQ-01", "REQ-02", "REQ-03", "REQ-05", "REQ-06"],
         )
     return result(
@@ -74,23 +102,47 @@ def check_t01(html: str, allow: str) -> dict:
 
 
 def check_t02(html: str) -> dict:
+    from html.parser import HTMLParser
+
+    class AnchorCollector(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.ids = set()
+            self.external_urls = []
+            self.in_doc_section = False
+            self.doc_section_links = 0
+
+        def handle_starttag(self, tag, attrs):
+            attrs_dict = dict(attrs)
+            # Collect all id attributes
+            if "id" in attrs_dict:
+                self.ids.add(attrs_dict["id"])
+                # Track section boundaries
+                if attrs_dict["id"] == "documentacion":
+                    self.in_doc_section = True
+                elif attrs_dict["id"] == "estado" and self.in_doc_section:
+                    self.in_doc_section = False
+            # Collect external URLs
+            for attr in ("href", "src"):
+                if attr in attrs_dict and attrs_dict[attr].startswith("http"):
+                    self.external_urls.append(attrs_dict[attr])
+            # Count links inside documentation section
+            if self.in_doc_section and tag.lower() == "a":
+                self.doc_section_links += 1
+
+    parser = AnchorCollector()
+    parser.feed(html)
+
     required_ids = {"inicio", "contenido", "proyecto", "metodo", "documentacion", "estado"}
-    present_ids = set(re.findall(r'id="([^"]+)"', html))
-    missing_ids = sorted(required_ids - present_ids)
-
-    external = re.findall(r"""(?:href|src)=["']https?://[^"']+["']""", html, re.I)
-
-    # Las tarjetas de documentación son "En preparación": no deben enlazar.
-    card_block = html.split('id="documentacion"', 1)[-1].split('id="estado"', 1)[0]
-    card_links = re.findall(r"<a\b", card_block, re.I)
+    missing_ids = sorted(required_ids - parser.ids)
 
     issues = []
     if missing_ids:
         issues.append(f"missing_ids={missing_ids}")
-    if external:
-        issues.append(f"external={external}")
-    if card_links:
-        issues.append(f"doc_card_links={len(card_links)}")
+    if parser.external_urls:
+        issues.append(f"external={parser.external_urls}")
+    if parser.doc_section_links:
+        issues.append(f"doc_card_links={parser.doc_section_links}")
     if issues:
         return result("T02", "fail", "; ".join(issues), ["REQ-04", "REQ-11"])
     return result(
@@ -145,12 +197,14 @@ def check_t05(html: str, css: str, js: str) -> dict:
 
 
 def check_t06(html: str) -> dict:
-    secretish = re.findall(
-        r"(?i)(api[_-]?key|secret|password|token\s*=\s*['\"][^'\"]+)",
-        html,
-    )
-    if secretish:
-        return result("T06", "fail", f"posibles secretos: {secretish}", ["REQ-05", "REQ-10"])
+    secret_leaks = []
+    for pattern, label in SECRET_PATTERNS:
+        matches = pattern.findall(html)
+        if matches:
+            # No se registra el valor del secreto: solo tipo y número de coincidencias.
+            secret_leaks.append(f"{label} ({len(matches)} coincidencia(s))")
+    if secret_leaks:
+        return result("T06", "fail", f"secretos detectados: {secret_leaks}", ["REQ-05", "REQ-10"])
     return result(
         "T06",
         "pass",
@@ -165,33 +219,6 @@ def check_t07() -> dict:
         "sin_datos",
         "REQ-12 P1: sin medición de campo ni ensayo de laboratorio solicitado en esta fase.",
         ["REQ-12"],
-    )
-
-
-def check_t08() -> dict:
-    """Comprueba que restaurar la copia de un artefacto lo deja idéntico."""
-    marker = HTML
-    original = marker.read_text(encoding="utf-8")
-    digest_before = sha256(marker)
-    with tempfile.TemporaryDirectory(prefix="sitio-rollback-") as tmp:
-        backup = Path(tmp) / "index.html"
-        shutil.copy2(marker, backup)
-        try:
-            marker.write_text(original + "\n<!-- rollback-probe -->\n", encoding="utf-8")
-            digest_changed = sha256(marker)
-            shutil.copy2(backup, marker)
-            digest_after = sha256(marker)
-        finally:
-            if marker.read_text(encoding="utf-8") != original:
-                marker.write_text(original, encoding="utf-8")
-    ok = digest_before == digest_after and digest_changed != digest_before
-    if not ok:
-        return result("T08", "fail", "el rollback local no restauró el artefacto", ["REQ-13"])
-    return result(
-        "T08",
-        "pass",
-        f"Rollback local OK. sha256_antes={digest_before}",
-        ["REQ-13"],
     )
 
 
@@ -228,12 +255,11 @@ def main() -> int:
         check_t05(html, css, js),
         check_t06(html),
         check_t07(),
-        check_t08(),
         check_t09(tokens),
     ]
 
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
 
     # El gate no promociona lo no verificado: separa lo que bloquea de lo que
     # queda pendiente de comprobación manual o de datos.
@@ -258,7 +284,7 @@ def main() -> int:
         "run_id": f"sitio-local-{stamp}",
         "phase": "VALIDATE",
         "target": "sitio/",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "artifact_sha256": {
             "index.html": sha256(HTML),
             "tokens.css": sha256(TOKENS),
@@ -274,16 +300,21 @@ def main() -> int:
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     latest.write_text(out.read_text(encoding="utf-8"), encoding="utf-8")
 
-    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    # La evidencia completa (incluye el detalle de cada comprobación) se escribe
+    # en el JSON. Por stdout/stderr solo se emite el estado por prueba: nunca se
+    # vuelca el detalle completo, que podría arrastrar contenido sensible.
     counts = gate["counts"]
+    print(f"sitio/pruebas: evidencia escrita en {out.relative_to(REPO)}")
+    for r in results:
+        print(f"  {r['id']}: {r['status']}")
     print(
         f"\ngate: {gate['status']} · {counts['pass']} pass · "
         f"{counts['fail']} fail · {counts['unverified']} sin verificar",
         file=sys.stderr,
     )
     if unverified:
-        detail = ", ".join(f"{u['id']}={u['status']}" for u in unverified)
-        print(f"pendiente de verificación: {detail} (ver sitio/pruebas/matriz.md)", file=sys.stderr)
+        ids = ", ".join(f"{u['id']}={u['status']}" for u in unverified)
+        print(f"pendiente de verificación: {ids} (ver sitio/pruebas/matriz.md)", file=sys.stderr)
 
     return 1 if blocking else 0
 

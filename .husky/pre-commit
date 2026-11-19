@@ -1,3 +1,7 @@
 #!/usr/bin/env sh
 npx lint-staged
 npm test
+# Secret scanning (rápido, repo completo con config allowlist)
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks detect --config .gitleaks.toml --verbose --redact || exit 1
+fi

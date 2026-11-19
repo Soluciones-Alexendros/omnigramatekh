@@ -48,15 +48,15 @@ graph TD
 
 ## Verification Checkpoints
 
-| Checkpoint                   | Command                                                                                      | Expected                                              |
-| ---------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| CP1: governance completo     | `bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .` | Solo faltan ci-cd, issues, docs-structure, readme-fix |
-| CP2: ci-cd + issues completo | `bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .` | Solo faltan docs-structure, readme-fix                |
-| CP3: docs-structure completo | `bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .` | Solo falta readme-fix                                 |
-| CP4: Todo completo           | `bash /home/alexendros/.pi/agent/skills/project-status/scripts/check-product-structure.sh .` | **Exit 0, 0 errores P1**                              |
-| CP5: CI válido               | `actionlint .github/workflows/ci.yml`                                                        | Sin errores                                           |
-| CP6: Formato                 | `npx prettier --check .`                                                                     | Pasa                                                  |
-| CP7: Tests existentes        | `npm test`                                                                                   | Pasa (no regresiones)                                 |
+| Checkpoint                   | Command                               | Expected                                              |
+| ---------------------------- | ------------------------------------- | ----------------------------------------------------- |
+| CP1: governance completo     | `bash scripts/check-structure.sh .`   | Solo faltan ci-cd, issues, docs-structure, readme-fix |
+| CP2: ci-cd + issues completo | `bash scripts/check-structure.sh .`   | Solo faltan docs-structure, readme-fix                |
+| CP3: docs-structure completo | `bash scripts/check-structure.sh .`   | Solo falta readme-fix                                 |
+| CP4: Todo completo           | `bash scripts/check-structure.sh .`   | **Exit 0, 0 errores P1**                              |
+| CP5: CI válido               | `actionlint .github/workflows/ci.yml` | Sin errores                                           |
+| CP6: Formato                 | `npx prettier --check .`              | Pasa                                                  |
+| CP7: Tests existentes        | `npm test`                            | Pasa (no regresiones)                                 |
 
 ## Role Routing
 

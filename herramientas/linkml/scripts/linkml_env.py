@@ -12,17 +12,14 @@ from __future__ import annotations
 
 import argparse
 import json
-import shutil
-import subprocess
 import sys
 from pathlib import Path
 from typing import TypedDict
 
-EXIT_OK = 0
-EXIT_ERROR = 1
-EXIT_INPUT = 2
-EXIT_MISSING = 3
-EXIT_PERM = 4
+# Importar helpers comunes
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from _common import EXIT_OK, EXIT_ERROR, EXIT_INPUT, EXIT_MISSING, EXIT_PERM, find_linkml, run, verify_executable
+
 MIN_PYTHON = (3, 10)
 
 
@@ -47,22 +44,6 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def find_linkml(args: argparse.Namespace) -> str | None:
-    if args.linkml:
-        path = Path(args.linkml)
-        return str(path) if path.exists() else None
-    if args.venv_dir:
-        cand = Path(args.venv_dir) / "bin" / "linkml"
-        if cand.exists():
-            return str(cand)
-    return shutil.which("linkml")
-
-
-def run(cmd: list[str]) -> tuple[int, str, str]:
-    proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
-    return proc.returncode, proc.stdout.strip(), proc.stderr.strip()
-
-
 def main() -> int:
     args = parse_args()
     report: ReportDict = {"checks": [], "verdict": "FAIL", "detail": None, "environment": None}
@@ -76,8 +57,20 @@ def main() -> int:
         }
     )
 
-    binpath = find_linkml(args)
+    binpath = find_linkml(args.linkml, args.venv_dir)
     if not binpath:
+        # Diferenciar: args explícitos → EXIT_INPUT; sin args → EXIT_MISSING
+        if args.linkml or args.venv_dir:
+            report["checks"].append(
+                {
+                    "id": "linkml_cli",
+                    "ok": False,
+                    "detail": "linkml no encontrado en la ruta especificada (--linkml/--venv-dir).",
+                }
+            )
+            report["detail"] = "invalid input: linkml not found at specified path"
+            _emit(args, report)
+            return EXIT_INPUT
         report["checks"].append(
             {
                 "id": "linkml_cli",
@@ -93,22 +86,34 @@ def main() -> int:
         _emit(args, report)
         return EXIT_MISSING
 
+    # Verificar que el binario es ejecutable
+    ok, detail = verify_executable(binpath)
+    if not ok:
+        report["checks"].append(
+            {
+                "id": "linkml_cli",
+                "ok": False,
+                "detail": f"binario inválido: {detail}",
+            }
+        )
+        report["detail"] = f"linkml binary invalid: {detail}"
+        _emit(args, report)
+        return EXIT_PERM
+
     version = "unknown"
-    ver_ok = False
-    rc, out, err = run([binpath, "--version"])
-    if rc == 0:
-        version = out or "unknown"
-        ver_ok = True
+    result = run([binpath, "--version"])
+    if result["exit_code"] == 0:
+        version = result["stdout"] or "unknown"
     report["checks"].append(
         {
             "id": "linkml_cli",
-            "ok": ver_ok,
-            "detail": f"{binpath} --version -> {version or err}",
+            "ok": True,
+            "detail": f"{binpath} --version -> {version}",
         }
     )
 
-    if not py_ok or not ver_ok:
-        report["detail"] = "pre-flight failed"
+    if not py_ok:
+        report["detail"] = "pre-flight failed: Python version"
         _emit(args, report)
         return EXIT_ERROR
 

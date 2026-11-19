@@ -8,12 +8,16 @@ Uso:
     python3 scripts/check_links.py [rutas...]
 
 Sin argumentos revisa todos los .md rastreados por git.
-Exit: 0 si todo resuelve, 1 si hay enlaces rotos.
+Exit codes:
+    0 = todo resuelve
+    1 = hay enlaces rotos
+    2 = argumento no es fichero existente
 """
 
 from __future__ import annotations
 
 import re
+import shutil
 import subprocess
 import sys
 import unicodedata
@@ -23,15 +27,19 @@ from urllib.parse import unquote
 REPO = Path(__file__).resolve().parents[1]
 
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".archify"}
-FENCE_RE = re.compile(r"^```.*?^```", re.S | re.M)
+# Fences: ``` ... ``` y ~~~ ... ~~~
+FENCE_RE = re.compile(r"^(```|~~~).*?^\1", re.S | re.M)
 INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
+# Inline links: [text](path)
 LINK_RE = re.compile(r"\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
+# Reference links: [id]: path (at line start, optional whitespace)
+REF_LINK_RE = re.compile(r"^\s*\[[^\]]+\]:\s*(\S+)", re.M)
 
 
 def tracked_markdown() -> list[Path]:
     try:
-        out = subprocess.run(
-            ["git", "ls-files", "*.md"],
+        out = subprocess.run(  # noqa: S603
+            [shutil.which("git") or "git", "ls-files", "*.md"],
             cwd=REPO,
             capture_output=True,
             text=True,
@@ -54,22 +62,57 @@ def is_external(target: str) -> bool:
     )
 
 
+def is_absolute_path(target: str) -> bool:
+    return target.startswith("/")
+
+
+def escapes_repo(target: str, base: Path) -> bool:
+    """True si el target resuelve fuera del REPO."""
+    try:
+        resolved = (base / unquote(target)).resolve()
+        # Comprobar que resolved está dentro de REPO
+        resolved.relative_to(REPO)
+        return False
+    except ValueError:
+        # relative_to lanza ValueError si no está dentro
+        return True
+
+
 def normalize(path: Path) -> str:
     # Compara en NFC: hay ficheros con acentos y macOS usa NFD.
     return unicodedata.normalize("NFC", str(path))
 
 
-def check_file(md: Path) -> list[tuple[int, str, str]]:
-    problems: list[tuple[int, str, str]] = []
+def make_origin(md: Path) -> str:
+    try:
+        return str(md.relative_to(REPO))
+    except ValueError:
+        return str(md)
+
+
+def check_file(md: Path) -> list[tuple[int, str, str, str | None]]:
+    problems: list[tuple[int, str, str, str | None]] = []
     try:
         text = md.read_text(encoding="utf-8")
     except UnicodeDecodeError:
-        problems.append((0, str(md), "no es UTF-8"))
+        problems.append((0, str(md), "no es UTF-8", None))
         return problems
 
-    for match in LINK_RE.finditer(strip_noise(text)):
+    clean = strip_noise(text)
+    origin = make_origin(md)
+
+    # Inline links
+    for match in LINK_RE.finditer(clean):
         target = match.group(1)
         if is_external(target):
+            continue
+        if is_absolute_path(target):
+            line = text[: match.start()].count("\n") + 1
+            problems.append((line, target, origin, "ruta absoluta"))
+            continue
+        if escapes_repo(target, md.parent):
+            line = text[: match.start()].count("\n") + 1
+            problems.append((line, target, origin, "escapa del repo"))
             continue
         path_part = target.split("#", 1)[0]
         if not path_part:
@@ -77,20 +120,43 @@ def check_file(md: Path) -> list[tuple[int, str, str]]:
         resolved = (md.parent / unquote(path_part)).resolve()
         if not Path(normalize(resolved)).exists():
             line = text[: match.start()].count("\n") + 1
-            problems.append((line, target, str(md.relative_to(REPO))))
+            problems.append((line, target, origin, None))
+
+    # Reference links: [id]: path
+    for match in REF_LINK_RE.finditer(clean):
+        target = match.group(1)
+        if is_external(target):
+            continue
+        if is_absolute_path(target):
+            line = text[: match.start()].count("\n") + 1
+            problems.append((line, target, origin, "ruta absoluta"))
+            continue
+        if escapes_repo(target, md.parent):
+            line = text[: match.start()].count("\n") + 1
+            problems.append((line, target, origin, "escapa del repo"))
+            continue
+        resolved = (md.parent / unquote(target)).resolve()
+        if not Path(normalize(resolved)).exists():
+            line = text[: match.start()].count("\n") + 1
+            problems.append((line, target, origin, None))
+
     return problems
 
 
 def main(argv: list[str]) -> int:
     if argv:
-        files = [Path(a) for a in argv]
+        files = []
+        for a in argv:
+            p = Path(a)
+            if not p.is_file():
+                print(f"check_links: error: '{a}' no es un fichero existente", file=sys.stderr)
+                return 2
+            files.append(p)
     else:
         files = tracked_markdown()
 
-    broken: list[tuple[int, str, str]] = []
+    broken: list[tuple[int, str, str, str | None]] = []
     for md in files:
-        if not md.is_file():
-            continue
         broken.extend(check_file(md))
 
     if not broken:
@@ -98,8 +164,13 @@ def main(argv: list[str]) -> int:
         return 0
 
     print(f"check_links: {len(broken)} enlace(s) roto(s)", file=sys.stderr)
-    for line, target, origin in broken:
-        print(f"  {origin}:{line} → {target}", file=sys.stderr)
+    for item in broken:
+        if len(item) == 4 and item[3]:
+            line, target, origin, reason = item
+            print(f"  {origin}:{line} → {target} ({reason})", file=sys.stderr)
+        else:
+            line, target, origin, _ = item
+            print(f"  {origin}:{line} → {target}", file=sys.stderr)
     return 1
 
 

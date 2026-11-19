@@ -36,9 +36,12 @@ test:
 
 lint:
 	npx prettier --check .
+	.venv/bin/ruff check sitio/pruebas/run_checks.py scripts/check_links.py scripts/_common.py herramientas/linkml/scripts/validate_cycle.py herramientas/linkml/scripts/linkml_env.py --line-length 100 --target-version py311 --select E,F,W,B,UP,S,SIM --ignore E501
 
 lint-fix:
 	npx prettier --write .
+	.venv/bin/ruff check sitio/pruebas/run_checks.py scripts/check_links.py scripts/_common.py herramientas/linkml/scripts/validate_cycle.py herramientas/linkml/scripts/linkml_env.py --line-length 100 --target-version py311 --select E,F,W,B,UP,S,SIM --ignore E501 --fix
+	.venv/bin/ruff format sitio/pruebas/run_checks.py scripts/check_links.py scripts/_common.py herramientas/linkml/scripts/validate_cycle.py herramientas/linkml/scripts/linkml_env.py
 
 validate: lint test validate-structure validate-linkml validate-docs validate-links
 	@echo "✅ Gate completo OK (lint + test + estructura P1 + smoke LinkML + docs + enlaces)"

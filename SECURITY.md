@@ -8,11 +8,11 @@ Define la política de seguridad del proyecto: versiones soportadas, proceso de 
 
 ## Versiones Soportadas
 
-Actualmente este proyecto está en fase experimental (0.x). No hay versiones con soporte de seguridad a largo plazo.
+Actualmente este proyecto está en fase experimental (0.x). No hay versiones con soporte LTS (long-term support). **No obstante**, nos comprometemos a evaluar y parchear vulnerabilidades críticas en la rama `main` según el SLA abajo.
 
-| Versión | Soportada |
-| ------- | --------- |
-| 0.x     | ❌        |
+| Versión    | Soportada      | Nota                                |
+| ---------- | -------------- | ----------------------------------- |
+| 0.x (main) | ⚠️ Best-effort | Sin LTS; parches críticos en `main` |
 
 ## Reporte de Vulnerabilidades
 

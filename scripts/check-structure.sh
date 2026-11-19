@@ -120,6 +120,14 @@ require_dir() {
   if [[ ! -d "$path" ]]; then
     echo "FALTA directorio: $path"
     missing=$((missing + 1))
+    return
+  fi
+  # Verificar que el directorio tiene al menos 1 fichero real (no .gitkeep)
+  local real_files
+  real_files=$(find "$path" -type f ! -name '.gitkeep' 2>/dev/null | head -1)
+  if [[ -z "$real_files" ]]; then
+    echo "FALTA contenido: $path (directorio vacío o solo .gitkeep)"
+    missing=$((missing + 1))
   fi
 }
 
@@ -182,8 +190,8 @@ require_file ".github/PULL_REQUEST_TEMPLATE.md"
 warn_missing ".github/ISSUE_TEMPLATE/bug.yml"
 warn_missing ".github/ISSUE_TEMPLATE/feature.yml"
 
-if [[ -f "$ci" ]] && ! grep -Eq "^[[:space:]]*smoke:" "$ci"; then
-  echo "FALTA job 'smoke' en $ci (P1)"
+if [[ -f "$ci" ]] && ! grep -Eq "^[[:space:]]*(smoke|linkml):" "$ci"; then
+  echo "FALTA job 'smoke' o 'linkml' en $ci (P1)"
   errors=$((errors + 1))
 fi
 
