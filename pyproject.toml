@@ -1,0 +1,44 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [
+  ".venv",
+  "__pycache__",
+  ".pytest_cache",
+  "node_modules",
+  ".git",
+  ".archify",
+  "sitio/pruebas/evidencia",
+]
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "W",   # pycodestyle warnings
+  "B",   # bugbear
+  "UP",  # pyupgrade
+  "S",   # flake8-bandit
+  "SIM", # flake8-simplify
+]
+ignore = [
+  "E501", # longitud de línea: la fija line-length
+]
+
+# Tests: asserts y subprocess son el mecanismo propio de la suite.
+[tool.ruff.lint.per-file-ignores]
+"herramientas/linkml/scripts/tests/*.py" = ["S101", "S108", "S603"]
+"herramientas/linkml/scripts/validate_cycle.py" = ["S603"]
+"herramientas/linkml/scripts/linkml_env.py" = ["S603"]
+"scripts/_common.py" = ["S603"]
+"scripts/check_links.py" = ["S607"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = true
+
+[tool.pytest.ini_options]
+testpaths = ["herramientas/linkml/scripts/tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]

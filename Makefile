@@ -37,12 +37,12 @@ test:
 
 lint:
 	npx prettier --check .
-	.venv/bin/ruff check sitio/pruebas/run_checks.py scripts/check_links.py scripts/_common.py herramientas/linkml/scripts/validate_cycle.py herramientas/linkml/scripts/linkml_env.py --line-length 100 --target-version py311 --select E,F,W,B,UP,S,SIM --ignore E501
+	.venv/bin/ruff check .
 
 lint-fix:
 	npx prettier --write .
-	.venv/bin/ruff check sitio/pruebas/run_checks.py scripts/check_links.py scripts/_common.py herramientas/linkml/scripts/validate_cycle.py herramientas/linkml/scripts/linkml_env.py --line-length 100 --target-version py311 --select E,F,W,B,UP,S,SIM --ignore E501 --fix
-	.venv/bin/ruff format sitio/pruebas/run_checks.py scripts/check_links.py scripts/_common.py herramientas/linkml/scripts/validate_cycle.py herramientas/linkml/scripts/linkml_env.py
+	.venv/bin/ruff check --fix .
+	.venv/bin/ruff format .
 
 validate: lint test validate-structure validate-linkml validate-docs validate-links
 	@echo "✅ Gate completo OK (lint + test + estructura P1 + smoke LinkML + docs + enlaces)"
@@ -55,8 +55,12 @@ test-browser:
 validate-structure:
 	@$(CHECK_STRUCTURE) . --profile P1
 
+# Prefiere contenedor OCI (reproducible, sin tocar el host). Si Docker no está
+# disponible (exit 3), cae al venv local vía smoke_sh.sh.
 validate-linkml:
-	@bash herramientas/linkml/scripts/tests/smoke_sh.sh
+	@set +e; bash herramientas/linkml/scripts/validate_cycle_container.sh; rc=$$?; \
+	  if [ $$rc -eq 3 ]; then bash herramientas/linkml/scripts/tests/smoke_sh.sh; \
+	  else exit $$rc; fi
 
 validate-docs:
 	npx prettier --check "documentacion/**/*.md" "docs/**/*.md" \
