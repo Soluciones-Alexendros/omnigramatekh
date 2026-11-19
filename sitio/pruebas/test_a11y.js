@@ -9,8 +9,9 @@
  *
  *   node --test sitio/pruebas/test_a11y.js
  *
- * Si axe-core o jsdom no están instalados, la prueba se marca como omitida
- * (no como pasada): el gate debe poder distinguir "no ejecutado" de "verde".
+ * Si axe-core o jsdom no están instalados (MODULE_NOT_FOUND), la prueba se omite
+ * en local, pero **falla en CI** (process.env.CI) para que un gate roto no pase
+ * inadvertido.
  */
 
 "use strict";
@@ -34,8 +35,13 @@ function loadTooling() {
     const axe = require("axe-core");
     const { JSDOM } = require("jsdom");
     return { axe, JSDOM };
-  } catch {
-    return null;
+  } catch (err) {
+    // Solo MODULE_NOT_FOUND es legítimo para "omitir"; cualquier otro error
+    // (versión incompatible, error de sintaxis, módulo roto) debe fallar.
+    if (err.code === "MODULE_NOT_FOUND") {
+      return null;
+    }
+    throw err;
   }
 }
 
@@ -51,8 +57,16 @@ function summarize(violations) {
 
 test("T04 · accesibilidad automática (axe-core, WCAG 2.1 AA)", async (t) => {
   const tooling = loadTooling();
+  const inCI = Boolean(process.env.CI);
+
   if (!tooling) {
-    t.skip("axe-core o jsdom no instalados: T04 queda sin verificar");
+    const msg =
+      "axe-core o jsdom no instalados (MODULE_NOT_FOUND): T04 omitido";
+    if (inCI) {
+      // En CI, un gate roto no puede pasar como "skip"
+      throw new Error(`${msg} — fallando en CI para evitar falso verde`);
+    }
+    t.skip(msg);
     return;
   }
 

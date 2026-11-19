@@ -22,17 +22,13 @@ from __future__ import annotations
 
 import argparse
 import json
-import shutil
-import subprocess
 import sys
 from pathlib import Path
 from typing import TypedDict
 
-EXIT_OK = 0
-EXIT_ERROR = 1
-EXIT_INPUT = 2
-EXIT_MISSING = 3
-EXIT_PERM = 4
+# Importar helpers comunes
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from _common import EXIT_OK, EXIT_ERROR, EXIT_INPUT, EXIT_MISSING, EXIT_PERM, find_linkml, run, verify_executable
 
 try:
     import yaml
@@ -75,22 +71,6 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def find_linkml(args: argparse.Namespace) -> str | None:
-    if args.linkml:
-        path = Path(args.linkml)
-        return str(path) if path.exists() else None
-    if args.venv_dir:
-        cand = Path(args.venv_dir) / "bin" / "linkml"
-        if cand.exists():
-            return str(cand)
-    return shutil.which("linkml")
-
-
-def run(cmd: list[str]) -> tuple[int, str, str]:
-    proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
-    return proc.returncode, proc.stdout.strip(), proc.stderr.strip()
-
-
 def expected_verdict(filename: str) -> str:
     return "REJECT" if "invalid" in Path(filename).name.lower() else "ACCEPT"
 
@@ -106,18 +86,31 @@ def main() -> int:
             print(f"ERROR: fichero de datos no encontrado: {data}", file=sys.stderr)
             return EXIT_INPUT
 
-    binpath = find_linkml(args)
+    binpath = find_linkml(args.linkml, args.venv_dir)
     if not binpath:
+        # Diferenciar: args explícitos → EXIT_INPUT; sin args → EXIT_MISSING
+        if args.linkml or args.venv_dir:
+            print(
+                "ERROR: linkml no encontrado en la ruta especificada (--linkml/--venv-dir).",
+                file=sys.stderr,
+            )
+            return EXIT_INPUT
         print(
             "ERROR: linkml CLI no encontrado. Instala con scripts/bootstrap_arch.sh o apunta --linkml/--venv-dir.",
             file=sys.stderr,
         )
         return EXIT_MISSING
 
+    # Verificar que el binario es ejecutable
+    ok, detail = verify_executable(binpath)
+    if not ok:
+        print(f"ERROR: linkml binario inválido: {detail}", file=sys.stderr)
+        return EXIT_PERM
+
     version = "unknown"
-    rc, out, err = run([binpath, "--version"])
-    if rc == 0:
-        version = out or "unknown"
+    result = run([binpath, "--version"])
+    if result["exit_code"] == 0:
+        version = result["stdout"] or "unknown"
 
     report: ReportDict = {
         "tool": "linkml",
@@ -136,7 +129,7 @@ def main() -> int:
                 "layer": 1,
                 "name": "yaml_syntax",
                 "status": "not_run",
-                "detail": "PyYAML no disponible; la sintaxis la cubrirá la capa 2",
+                "detail": "PyYAML no disponible; la sintaxis la cubrirá la capa 2 (linkml lint/validate)",
                 "command": None,
                 "exit_code": None,
                 "expected": None,
@@ -181,15 +174,15 @@ def main() -> int:
 
     # Capa 2: metamodelo.
     cmd = [binpath, "validate", str(schema)]
-    rc, out, err = run(cmd)
+    result = run(cmd)
     report["layers"].append(
         {
             "layer": 2,
             "name": "metamodel",
-            "status": "pass" if rc == 0 else "fail",
+            "status": "pass" if result["exit_code"] == 0 else "fail",
             "command": " ".join(cmd),
-            "exit_code": rc,
-            "detail": (out or err)[:400],
+            "exit_code": result["exit_code"],
+            "detail": (result["stdout"] or result["stderr"])[:400],
             "expected": None,
             "actual": None,
             "file": None,
@@ -198,15 +191,15 @@ def main() -> int:
 
     # Capa 3: lint.
     cmd = [binpath, "lint", str(schema)]
-    rc, out, err = run(cmd)
+    result = run(cmd)
     report["layers"].append(
         {
             "layer": 3,
             "name": "lint",
-            "status": "pass" if rc == 0 else "fail",
+            "status": "pass" if result["exit_code"] == 0 else "fail",
             "command": " ".join(cmd),
-            "exit_code": rc,
-            "detail": (out or err)[:400],
+            "exit_code": result["exit_code"],
+            "detail": (result["stdout"] or result["stderr"])[:400],
             "expected": None,
             "actual": None,
             "file": None,
@@ -216,8 +209,8 @@ def main() -> int:
     # Capa 4: instancias, positivo y negativo.
     for data in args.data:
         cmd = [binpath, "validate", "-s", str(schema), "-C", args.target_class, data]
-        rc, out, err = run(cmd)
-        actual = "ACCEPT" if rc == 0 else "REJECT"
+        result = run(cmd)
+        actual = "ACCEPT" if result["exit_code"] == 0 else "REJECT"
         wanted = expected_verdict(data)
         ok = actual == wanted
         report["layers"].append(
@@ -229,15 +222,14 @@ def main() -> int:
                 "actual": actual,
                 "status": "pass" if ok else "fail",
                 "command": " ".join(cmd),
-                "exit_code": rc,
-                "detail": (out or err)[:400],
+                "exit_code": result["exit_code"],
+                "detail": (result["stdout"] or result["stderr"])[:400],
             }
         )
 
     layers = report["layers"]
-    blocking = [
-        layer for layer in layers if layer.get("status") in {"fail", "not_run"} and layer.get("layer") in {1, 2, 3, 4}
-    ]
+    # not_run en capa 1 es warn, no bloqueante (D-003)
+    blocking = [layer for layer in layers if layer.get("status") == "fail" and layer.get("layer") in {1, 2, 3, 4}]
     report["verdict"] = "PASS" if not blocking else "FAIL"
 
     _emit(args, report)

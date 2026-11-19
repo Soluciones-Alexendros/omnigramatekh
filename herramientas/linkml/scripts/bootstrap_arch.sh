@@ -14,13 +14,13 @@
 #   bootstrap_arch.sh --apply            # instala (sudo para pacman)
 #   bootstrap_arch.sh --apply --verify --venv-dir /tmp/linkml-venv
 #   bootstrap_arch.sh --apply --skip-pacman
+#   bootstrap_arch.sh --dry-run --apply  # dry-run GANA siempre
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 REQ_FILE="$SKILL_DIR/assets/requirements-linkml.txt"
 
-APPLY=0
 # LinkML project directory: the venvs live under ~/Projects/linkml/venvs/.
 LINKML_PROJECT_DIR="${LINKML_PROJECT_DIR:-$HOME/Projects/linkml}"
 VENV_DIR="${LINKML_VENV_DIR:-$LINKML_PROJECT_DIR/venvs/linkml}"
@@ -30,7 +30,7 @@ DRY_RUN=1
 
 usage() {
   cat <<EOF
-Uso: bootstrap_arch.sh [--apply] [--venv-dir DIR] [--skip-pacman] [--verify]
+Uso: bootstrap_arch.sh [--apply] [--venv-dir DIR] [--skip-pacman] [--verify] [--dry-run]
 
 Prepara el entorno LinkML en Arch Linux:
   1. pacman: python + python-pip (solo si faltan; sudo + confirmación)
@@ -43,22 +43,35 @@ Flags:
   --venv-dir DIR ubicación del venv (default: ~/Projects/linkml/venvs/linkml)
   --skip-pacman  no toca pacman (requiere Python >= 3.10 ya presente)
   --verify       tras instalar, ejecuta la verificación completa
+  --dry-run      dry-run explícito (GANA sobre --apply si ambos se dan)
   --help         esta ayuda
 EOF
 }
 
+# Parse args - process all first, then decide dry-run vs apply
+apply_given=0
+dry_run_given=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --apply) APPLY=1; DRY_RUN=0 ;;
+    --apply) apply_given=1 ;;
     --venv-dir) VENV_DIR="${2:?--venv-dir requiere DIR}"; shift ;;
     --skip-pacman) SKIP_PACMAN=1 ;;
     --verify) VERIFY=1 ;;
-    --dry-run) DRY_RUN=1 ;;
+    --dry-run) dry_run_given=1 ;;
     --help|-h) usage; exit 0 ;;
     *) echo "ERROR: flag desconocida: $1" >&2; usage >&2; exit 2 ;;
   esac
   shift
 done
+
+# --dry-run GANA siempre sobre --apply
+if [[ "$dry_run_given" -eq 1 ]]; then
+  DRY_RUN=1
+elif [[ "$apply_given" -eq 1 ]]; then
+  DRY_RUN=0
+else
+  DRY_RUN=1
+fi
 
 ok() { echo "OK: $1"; }
 bad() { echo "FALLO: $1" >&2; exit 1; }
@@ -122,7 +135,7 @@ if [[ -d "$VENV_DIR" ]]; then
 else
   echo "  venv: crear $VENV_DIR (python3 -m venv)"
 fi
-echo "  pip:   $VENV_DIR/bin/pip install -r $REQ_FILE"
+echo "  pip:   $VENV_DIR/bin/pip install --require-hashes -r $REQ_FILE.lock"
 [[ "$VERIFY" -eq 1 ]] && echo "  verify: linkml --version + laboratorio validate_cycle.py" || echo "  verify: omitido"
 
 if [[ "$DRY_RUN" -eq 1 ]]; then
@@ -151,18 +164,20 @@ if [[ ! -d "$VENV_DIR" ]]; then
   mkdir -p "$(dirname "$VENV_DIR")" || bad "no se pudo crear el directorio del venv"
   "$PY_BIN" -m venv "$VENV_DIR" || bad "no se pudo crear el venv en $VENV_DIR"
 fi
-"$VENV_DIR/bin/python" -m pip install --upgrade pip >/dev/null || bad "pip upgrade falló"
+"$VENV_DIR/bin/python" -m pip install --upgrade pip==25.1 >/dev/null || bad "pip upgrade falló"
 
 # ---------- 3. pip (dentro del venv) ----------
 step "pip install (dentro del venv)"
-"$VENV_DIR/bin/pip" install -r "$REQ_FILE" || bad "pip install falló"
+LOCK_FILE="$REQ_FILE.lock"
+[[ -f "$LOCK_FILE" ]] || bad "lock file no encontrado: $LOCK_FILE"
+"$VENV_DIR/bin/pip" install --require-hashes -r "$LOCK_FILE" || bad "pip install falló"
 
 # ---------- 4. verify ----------
 if [[ "$VERIFY" -eq 1 ]]; then
   step "verify"
   VER="$("$VENV_DIR/bin/linkml" --version || true)"
   echo "  linkml --version: ${VER:-DESCONOCIDA}"
-  python3 "$SCRIPT_DIR/validate_cycle.py" \
+  "$VENV_DIR/bin/python" "$SCRIPT_DIR/validate_cycle.py" \
     --linkml "$VENV_DIR/bin/linkml" \
     --schema "$SKILL_DIR/assets/schema-template.yaml" \
     --target-class Catalog \

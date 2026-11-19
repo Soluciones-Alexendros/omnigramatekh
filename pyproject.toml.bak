@@ -1,0 +1,48 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "W",   # pycodestyle warnings
+    "B",   # bugbear
+    "UP",  # pyupgrade
+    "S",   # flake8-bandit
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by line-length)
+]
+per-file-ignores = [
+  "herramientas/linkml/scripts/tests/*.py:S101,S108,S603",
+  "herramientas/linkml/scripts/validate_cycle.py:S101,S108,S603",
+  "herramientas/linkml/scripts/linkml_env.py:S101,S108,S603",
+  "scripts/check_links.py:S607",
+  "scripts/_common.py:S603",
+]
+# Solo revisar código principal del repo, no tests ni directorios ajenos
+include = [
+  "sitio/pruebas/**/*.py",
+  "herramientas/linkml/scripts/validate_cycle.py",
+  "herramientas/linkml/scripts/linkml_env.py",
+  "scripts/**/*.py",
+]
+exclude = [
+  ".venv",
+  "__pycache__",
+  ".pytest_cache",
+  "node_modules",
+  ".git",
+  ".archify",
+  "sitio/pruebas/evidencia",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = true
+
+[tool.pytest.ini_options]
+testpaths = ["herramientas/linkml/scripts/tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]

@@ -1,0 +1,16 @@
+title = "Gitleaks config for omnigramatekh"
+
+[allowlist]
+description = "Allow SHA256 hashes in evidence files, package-lock, renovate config"
+paths = [
+  "sitio/pruebas/evidencia/",
+  "package-lock.json",
+  "renovate.json",
+  "renovate.json5",
+]
+regexes = [
+  # SHA256 hex strings (64 chars)
+  "([a-f0-9]{64})",
+  # Commit SHAs (40 chars)
+  "([a-f0-9]{40})",
+]
