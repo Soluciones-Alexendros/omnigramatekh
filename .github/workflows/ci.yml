@@ -116,7 +116,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@107d717d86c4657a744e4e5e6c2979d8f7c8380f # v2
+        uses: gitleaks/gitleaks-action@07d6e4ed91b2707b5542bba5a709e33b3ffede60 # v2.0.0
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
