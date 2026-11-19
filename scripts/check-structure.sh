@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-trap 'rc=$?; echo "check-structure.sh: error en línea $LINENO (exit $rc)" >&2' ERR
+trap 'printf "%s: error en línea %s (exit %s)\n" "$SCRIPT_NAME" "$LINENO" "$?" >&2' ERR
 
 SCRIPT_NAME="$(basename "$0")"
 
@@ -35,12 +35,10 @@ Códigos de salida:
 EOF
 }
 
-for dep in grep; do
-  if ! command -v "$dep" >/dev/null 2>&1; then
-    echo "$SCRIPT_NAME: falta dependencia requerida: $dep" >&2
-    exit 1
-  fi
-done
+if ! command -v grep >/dev/null 2>&1; then
+  echo "$SCRIPT_NAME: falta dependencia requerida: grep" >&2
+  exit 1
+fi
 
 root="."
 profile="P1"

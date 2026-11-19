@@ -14,7 +14,6 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-ASSETS="$REPO_ROOT/herramientas/linkml/assets"
 
 # Imagen fijada por digest (manifest list multi-arch de linkml/linkml:1.12.1).
 DEFAULT_IMAGE="linkml/linkml@sha256:37859c05b9ba1242be63f61d599edf4ba3a312d2d1893c067aefb191311b59c8"
