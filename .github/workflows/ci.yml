@@ -179,10 +179,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Chromium de Playwright (sin caché explícita: ~20 s, menos superficie que
-      # añadir otra action por SHA). --with-deps necesita root; el runner lo es.
+      # Chromium de Playwright. Sin dependencias del sistema: el runner ya las
+      # trae (imagen con Chrome) y así el gate no depende del gestor de paquetes,
+      # que ha fallado por incidencias del mirror (503) y tumbaba el job.
       - name: Install Chromium (Playwright)
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
 
       - name: Accessibility + reflow (Chromium real)
         run: npm run test:browser:a11y
