@@ -115,8 +115,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - name: Install gitleaks
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.24.0/gitleaks_8.24.0_linux_x64.tar.gz |
+          tar -xz gitleaks && chmod +x gitleaks && sudo mv gitleaks /usr/local/bin/
+
       - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@07d6e4ed91b2707b5542bba5a709e33b3ffede60 # v2.0.0
+        run: gitleaks detect --config .gitleaks.toml --verbose --redact
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

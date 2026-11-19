@@ -274,10 +274,12 @@ curies==0.15.8 \
     # via
     #   linkml-runtime
     #   prefixmaps
-deprecated==3.0.1 \
-    --hash=sha256:2f5a9fecc9961e26462846cf1e57f73a612b1d0b79c27dceeed8de647beadcee \
-    --hash=sha256:eda314c115e8bc0fe52b90a6869e19240ac3cedb7449adfdba5981cf9ef693e1
-    # via linkml-runtime
+deprecated==3.0.0 \
+    --hash=sha256:16850204d3a1e6bb0acd06bff48d96e8b0a0d25d1c52f71705405a0f4894192d \
+    --hash=sha256:58204cf4a7f6270d547af5c278ee7a6bb56045a4b3d8441a1cd11660f41b7939
+    # via
+    #   -r herramientas/linkml/assets/requirements-linkml.txt
+    #   linkml-runtime
 docutils==0.23 \
     --hash=sha256:25d013af9bf23bc1c7b2b093dff4208166c53a94786c9e447808335ef1185fea \
     --hash=sha256:746f5060322511280a1e50eb76846ed6bf2342984b2ac04dc42caa1a8d78799e
