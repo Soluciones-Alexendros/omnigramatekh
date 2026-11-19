@@ -79,8 +79,10 @@ step() { echo "==> $1"; }
 
 # ---------- Preflight ----------
 step "Preflight"
-OS_ID="$(grep -E '^ID=' /etc/os-release | cut -d= -f2 | tr -d '"' || true)"
-OS_LIKE="$(grep -E '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"' || true)"
+# OS_RELEASE permite simular otra distro en tests (no cambia nada en uso real).
+OS_RELEASE="${BOOTSTRAP_OS_RELEASE:-/etc/os-release}"
+OS_ID="$(grep -E '^ID=' "$OS_RELEASE" | cut -d= -f2 | tr -d '"' || true)"
+OS_LIKE="$(grep -E '^ID_LIKE=' "$OS_RELEASE" | cut -d= -f2 | tr -d '"' || true)"
 IS_ARCH=0
 for cand in "$OS_ID" $OS_LIKE; do
   [[ "$cand" == "arch" || "$cand" == "archlinux" ]] && IS_ARCH=1

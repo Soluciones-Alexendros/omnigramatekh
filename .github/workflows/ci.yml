@@ -84,6 +84,22 @@ jobs:
       - name: Validate LinkML (smoke + ciclo real)
         run: bash herramientas/linkml/scripts/tests/smoke_sh.sh
 
+      - name: Tests de las herramientas LinkML (pytest)
+        run: python -m pytest herramientas/linkml/scripts/tests -q
+
+  linkml-container:
+    name: LinkML in Container (digest-pinned)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Verificación real de reproducibilidad: mismo ciclo, sin instalar nada
+      # en el host, con la imagen oficial fijada por digest.
+      - name: Validate cycle in OCI container
+        run: bash herramientas/linkml/scripts/validate_cycle_container.sh
+
   validate-docs:
     name: Validate Documentation
     runs-on: ubuntu-latest

@@ -5,9 +5,23 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 REPO_ROOT = Path(__file__).resolve().parents[4]
+
+
+def find_linkml() -> str | None:
+    """Binario linkml disponible: venv del repo o PATH (CI lo instala global)."""
+    import shutil
+
+    cand = REPO_ROOT / ".venv" / "bin" / "linkml"
+    if cand.is_file():
+        return str(cand)
+    return shutil.which("linkml")
+
+
 LINKML_ENV = REPO_ROOT / "herramientas" / "linkml" / "scripts" / "linkml_env.py"
-LINKML_BIN = REPO_ROOT / ".venv" / "bin" / "linkml"
+LINKML_BIN = find_linkml()
 
 
 def run_cmd(args: list[str]) -> subprocess.CompletedProcess:
@@ -55,6 +69,7 @@ def test_linkml_no_encontrado_exit_missing():
     assert "no encontrado" in output.lower()
 
 
+@pytest.mark.skipif(LINKML_BIN is None, reason="linkml no disponible en este host")
 def test_preflight_pass():
     """Pre-flight con linkml válido → PASS (exit 0)."""
     result = run_cmd(["--linkml", str(LINKML_BIN)])
