@@ -10,7 +10,7 @@ CHECK_STRUCTURE := bash scripts/check-structure.sh
 
 .DEFAULT_GOAL := help
 
-.PHONY: help setup test test-browser lint lint-fix validate validate-structure validate-linkml validate-docs validate-links validate-workflows clean
+.PHONY: help setup test test-browser lint lint-fix validate validate-contracts validate-structure validate-linkml validate-docs validate-links validate-workflows clean
 
 help:
 	@echo "Targets disponibles:"
@@ -25,6 +25,7 @@ help:
 	@echo "  make validate-docs     - Formato de la documentación"
 	@echo "  make validate-links    - Enlaces relativos de la documentación"
 	@echo "  make validate-workflows- actionlint + zizmor sobre .github/workflows"
+	@echo "  make validate-contracts- Coherencia versión/CHANGELOG/docs y jobs de CI"
 	@echo "  make clean             - Limpia cachés locales (no borra entregables)"
 
 # Preparación de un clon nuevo: dependencias exactas del lockfile + hooks. 
@@ -45,13 +46,18 @@ lint-fix:
 	.venv/bin/ruff check --fix .
 	.venv/bin/ruff format .
 
-validate: lint test validate-structure validate-linkml validate-docs validate-links
-	@echo "✅ Gate completo OK (lint + test + estructura P1 + smoke LinkML + docs + enlaces)"
+validate: lint test validate-contracts validate-structure validate-linkml validate-docs validate-links
+	@echo "✅ Gate completo OK (lint + test + contratos + estructura P1 + LinkML + docs + enlaces)"
 
 # Gates en navegador real (Chromium): accesibilidad con contraste, reflow y
 # presupuestos de rendimiento. Requiere `npx playwright install chromium`.
 test-browser:
 	npm run test:browser
+
+# Contratos, no presencia: versión coherente, jobs que ejecutan algo, `uses`
+# fijados por SHA y directorios de docs con contenido.
+validate-contracts:
+	@python3 scripts/check_contracts.py
 
 validate-structure:
 	@$(CHECK_STRUCTURE) . --profile P1
