@@ -37,6 +37,7 @@ jobs:
       - name: Install workflow linters (actionlint + zizmor)
         run: |
           go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
           pipx install "zizmor==1.32.0"
 
       - name: Lint and audit workflows
