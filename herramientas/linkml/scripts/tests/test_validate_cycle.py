@@ -5,9 +5,23 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 REPO_ROOT = Path(__file__).resolve().parents[4]
+
+
+def find_linkml() -> str | None:
+    """Binario linkml disponible: venv del repo o PATH (CI lo instala global)."""
+    import shutil
+
+    cand = REPO_ROOT / ".venv" / "bin" / "linkml"
+    if cand.is_file():
+        return str(cand)
+    return shutil.which("linkml")
+
+
 VALIDATE_CYCLE = REPO_ROOT / "herramientas" / "linkml" / "scripts" / "validate_cycle.py"
-LINKML_BIN = REPO_ROOT / ".venv" / "bin" / "linkml"
+LINKML_BIN = find_linkml()
 SCHEMA = REPO_ROOT / "herramientas" / "linkml" / "assets" / "schema-template.yaml"
 VALID_INSTANCE = REPO_ROOT / "herramientas" / "linkml" / "assets" / "instance-valid.yaml"
 INVALID_INSTANCE = REPO_ROOT / "herramientas" / "linkml" / "assets" / "instance-invalid.yaml"
@@ -74,6 +88,7 @@ def test_data_inexistente_exit_input():
     assert "no encontrado" in result.stderr
 
 
+@pytest.mark.skipif(LINKML_BIN is None, reason="linkml no disponible en este host")
 def test_ciclo_completo_pass():
     """Ciclo completo con fixtures válidas → PASS (exit 0)."""
     result = run_cmd([
