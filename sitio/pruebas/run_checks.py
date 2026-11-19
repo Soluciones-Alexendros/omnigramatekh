@@ -83,7 +83,8 @@ def check_t01(html: str, allow: str) -> dict:
     for pattern, label in SECRET_PATTERNS:
         matches = pattern.findall(html)
         if matches:
-            secret_leaks.append(f"{label}: {matches[:3]}")
+            # No se registra el valor del secreto: solo tipo y número de coincidencias.
+            secret_leaks.append(f"{label} ({len(matches)} coincidencia(s))")
     all_leaks = private_leaks + secret_leaks
     if missing or castigo_present or all_leaks or not allow_omits_castigo:
         return result(
@@ -200,7 +201,8 @@ def check_t06(html: str) -> dict:
     for pattern, label in SECRET_PATTERNS:
         matches = pattern.findall(html)
         if matches:
-            secret_leaks.append(f"{label}: {matches[:3]}")
+            # No se registra el valor del secreto: solo tipo y número de coincidencias.
+            secret_leaks.append(f"{label} ({len(matches)} coincidencia(s))")
     if secret_leaks:
         return result("T06", "fail", f"secretos detectados: {secret_leaks}", ["REQ-05", "REQ-10"])
     return result(
