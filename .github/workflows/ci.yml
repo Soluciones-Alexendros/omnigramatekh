@@ -107,6 +107,34 @@ jobs:
       - name: Check relative markdown links
         run: make validate-links
 
+  browser-gates:
+    name: Browser Gates (a11y + perf)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Chromium de Playwright (sin caché explícita: ~20 s, menos superficie que
+      # añadir otra action por SHA). --with-deps necesita root; el runner lo es.
+      - name: Install Chromium (Playwright)
+        run: npx playwright install --with-deps chromium
+
+      - name: Accessibility + reflow (Chromium real)
+        run: npm run test:browser:a11y
+
+      - name: Performance budgets (Lighthouse CI)
+        run: npm run test:browser:perf
+
   gitleaks:
     name: Secret Scanning
     runs-on: ubuntu-latest
