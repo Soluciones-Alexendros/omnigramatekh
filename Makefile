@@ -37,9 +37,13 @@ setup:
 test:
 	npm test
 
+SHELL_SCRIPTS := herramientas/linkml/scripts/*.sh herramientas/linkml/scripts/tests/*.sh \
+	scripts/*.sh .husky/pre-commit .husky/commit-msg
+
 lint:
 	npx prettier --check .
 	.venv/bin/ruff check .
+	.venv/bin/shellcheck -S warning $(SHELL_SCRIPTS)
 
 lint-fix:
 	npx prettier --write .

@@ -23,6 +23,9 @@ sitio/pruebas/evidencia/latest.json
 sitio/pruebas/evidencia/browser-*.json
 sitio/pruebas/evidencia/lighthouse/
 .lighthouseci/
+# Artefactos locales de pruebas de mutación (mutmut), no versionados.
+.mutmut-cache/
+mutants/
 # Curated evidence (manually promoted) goes here:
 !sitio/pruebas/evidencia/curada/
 
