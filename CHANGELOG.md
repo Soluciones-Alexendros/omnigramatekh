@@ -9,6 +9,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _(sin cambios pendientes)_
 
+## [0.3.0] - 2026-11-19
+
+Remediación de la auditoría crítica y cierre de las cinco mejoras propuestas.
+
+### Added
+
+- Gates en navegador real (Chromium): accesibilidad con **contraste efectivo**,
+  reflow WCAG 1.4.10 a 320 px y presupuestos de rendimiento con Lighthouse CI.
+- Ciclo LinkML en contenedor OCI fijado por digest, con fallback al venv local.
+- Gates de **contrato** (`scripts/check_contracts.py`): versión coherente con
+  CHANGELOG y README, jobs de CI que ejecutan algo real, `docs/` con contenido,
+  y todo `uses:` fijado por SHA.
+- Seguridad de pipeline: `zizmor` + `actionlint` como gate con versiones fijadas
+  y OpenSSF Scorecard semanal con SARIF a code scanning.
+- Suite de validadores: 42 tests (LinkML, contratos, módulo común), con caminos
+  de error y skips limpios donde falta el binario.
+- `shellcheck` en `make lint` y CI, con versión fijada.
+
+### Changed
+
+- `make validate` incorpora contratos; `make validate-workflows` audita workflows.
+- `validate_cycle.py`/`linkml_env.py` comparten `scripts/_common.py` (sin duplicar
+  `find_linkml`, `run` ni los exit codes).
+- Lock de LinkML generado para Python 3.12 con `--require-hashes`.
+
+### Fixed
+
+- Secrets gate: T01/T06 detectan claves reales por forma (no por subcadena) y no
+  registran el valor del secreto (hallazgo CodeQL).
+- `--venv-dir` inexistente ya no cae en silencio a otro `linkml`; devuelve error.
+- `--dry-run` gana siempre sobre `--apply` en el bootstrap de LinkML.
+- `check_links.py`: argumento inexistente → exit 2; enlaces fuera del repo → fallo.
+- Accesibilidad: si faltan `jsdom`/`axe-core`, el gate falla en CI (antes pasaba).
+- 8 checkouts de Actions persistían credenciales (`persist-credentials: false`).
+
+### Removed
+
+- T08 (test tautológico que comprobaba `shutil.copy2` y mutaba `index.html`).
+- Dos generaciones superadas de `.archify/` (~48.000 líneas).
+
 ## [0.2.1] - 2026-11-18
 
 ### Added
