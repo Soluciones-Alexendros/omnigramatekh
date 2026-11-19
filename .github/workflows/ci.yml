@@ -80,6 +80,9 @@ jobs:
       - name: Validate P1 structure
         run: bash scripts/check-structure.sh . --profile P1
 
+      - name: Validate contracts (version, CI jobs, docs, pinned uses)
+        run: make validate-contracts
+
   linkml:
     name: Validate LinkML Tools
     runs-on: ubuntu-latest
@@ -105,8 +108,9 @@ jobs:
       - name: Validate LinkML (smoke + ciclo real)
         run: bash herramientas/linkml/scripts/tests/smoke_sh.sh
 
-      - name: Tests de las herramientas LinkML (pytest)
-        run: python -m pytest herramientas/linkml/scripts/tests -q
+      # pytest usa los testpaths de pyproject: herramientas LinkML + contratos.
+      - name: Tests de scripts y herramientas (pytest)
+        run: python -m pytest -q
 
   linkml-container:
     name: LinkML in Container (digest-pinned)
